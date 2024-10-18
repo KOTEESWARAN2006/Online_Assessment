@@ -1,0 +1,830 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Project_Online_AssessmentModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="Project_Online_AssessmentModelStoreContainer">
+          <EntitySet Name="Difficulty_table" EntityType="Project_Online_AssessmentModel.Store.Difficulty_table" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Gender_table" EntityType="Project_Online_AssessmentModel.Store.Gender_table" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Option_table" EntityType="Project_Online_AssessmentModel.Store.Option_table" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Question_mapping_table" EntityType="Project_Online_AssessmentModel.Store.Question_mapping_table" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Question_table" EntityType="Project_Online_AssessmentModel.Store.Question_table" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Subject_table" EntityType="Project_Online_AssessmentModel.Store.Subject_table" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Test_mapping_table" EntityType="Project_Online_AssessmentModel.Store.Test_mapping_table" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Test_result_table" EntityType="Project_Online_AssessmentModel.Store.Test_result_table" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Test_table" EntityType="Project_Online_AssessmentModel.Store.Test_table" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User_table" EntityType="Project_Online_AssessmentModel.Store.User_table" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Option_ta__Quest__1B0907CE" Association="Project_Online_AssessmentModel.Store.FK__Option_ta__Quest__1B0907CE">
+            <End Role="Question_table" EntitySet="Question_table" />
+            <End Role="Option_table" EntitySet="Option_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question___Diffi__164452B1" Association="Project_Online_AssessmentModel.Store.FK__Question___Diffi__164452B1">
+            <End Role="Difficulty_table" EntitySet="Difficulty_table" />
+            <End Role="Question_table" EntitySet="Question_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question___Quest__36B12243" Association="Project_Online_AssessmentModel.Store.FK__Question___Quest__36B12243">
+            <End Role="Question_table" EntitySet="Question_table" />
+            <End Role="Question_mapping_table" EntitySet="Question_mapping_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question___Subje__15502E78" Association="Project_Online_AssessmentModel.Store.FK__Question___Subje__15502E78">
+            <End Role="Subject_table" EntitySet="Subject_table" />
+            <End Role="Question_table" EntitySet="Question_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question___Test___35BCFE0A" Association="Project_Online_AssessmentModel.Store.FK__Question___Test___35BCFE0A">
+            <End Role="Test_table" EntitySet="Test_table" />
+            <End Role="Question_mapping_table" EntitySet="Question_mapping_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_mapp__Subje__3D5E1FD2" Association="Project_Online_AssessmentModel.Store.FK__Test_mapp__Subje__3D5E1FD2">
+            <End Role="Subject_table" EntitySet="Subject_table" />
+            <End Role="Test_mapping_table" EntitySet="Test_mapping_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_mapp__Test___3C69FB99" Association="Project_Online_AssessmentModel.Store.FK__Test_mapp__Test___3C69FB99">
+            <End Role="Test_table" EntitySet="Test_table" />
+            <End Role="Test_mapping_table" EntitySet="Test_mapping_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_mapp__User___3B75D760" Association="Project_Online_AssessmentModel.Store.FK__Test_mapp__User___3B75D760">
+            <End Role="User_table" EntitySet="User_table" />
+            <End Role="Test_mapping_table" EntitySet="Test_mapping_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_resu__Subje__48CFD27E" Association="Project_Online_AssessmentModel.Store.FK__Test_resu__Subje__48CFD27E">
+            <End Role="Subject_table" EntitySet="Subject_table" />
+            <End Role="Test_result_table" EntitySet="Test_result_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_resu__Test___45F365D3" Association="Project_Online_AssessmentModel.Store.FK__Test_resu__Test___45F365D3">
+            <End Role="Test_mapping_table" EntitySet="Test_mapping_table" />
+            <End Role="Test_result_table" EntitySet="Test_result_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_resu__Test___47DBAE45" Association="Project_Online_AssessmentModel.Store.FK__Test_resu__Test___47DBAE45">
+            <End Role="Test_table" EntitySet="Test_table" />
+            <End Role="Test_result_table" EntitySet="Test_result_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_resu__User___46E78A0C" Association="Project_Online_AssessmentModel.Store.FK__Test_resu__User___46E78A0C">
+            <End Role="User_table" EntitySet="User_table" />
+            <End Role="Test_result_table" EntitySet="Test_result_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_tabl__Diffi__30F848ED" Association="Project_Online_AssessmentModel.Store.FK__Test_tabl__Diffi__30F848ED">
+            <End Role="Difficulty_table" EntitySet="Difficulty_table" />
+            <End Role="Test_table" EntitySet="Test_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_tabl__Subje__300424B4" Association="Project_Online_AssessmentModel.Store.FK__Test_tabl__Subje__300424B4">
+            <End Role="Subject_table" EntitySet="Subject_table" />
+            <End Role="Test_table" EntitySet="Test_table" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Difficulty_table">
+          <Key>
+            <PropertyRef Name="Difficulty_Id" />
+          </Key>
+          <Property Name="Difficulty_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Difficulty_level" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Gender_table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Gender" Type="varchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Option_table">
+          <Key>
+            <PropertyRef Name="Option_Id" />
+          </Key>
+          <Property Name="Option_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Question_Id" Type="int" />
+          <Property Name="Options" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Answer" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question_mapping_table">
+          <Key>
+            <PropertyRef Name="Question_map_id" />
+          </Key>
+          <Property Name="Question_map_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Test_id" Type="int" Nullable="false" />
+          <Property Name="Question_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question_table">
+          <Key>
+            <PropertyRef Name="Question_Id" />
+          </Key>
+          <Property Name="Question_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Subject_Id" Type="int" Nullable="false" />
+          <Property Name="Question" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Difficulty_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subject_table">
+          <Key>
+            <PropertyRef Name="Subject_Id" />
+          </Key>
+          <Property Name="Subject_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Subject_name" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Test_mapping_table">
+          <Key>
+            <PropertyRef Name="Test_map_id" />
+          </Key>
+          <Property Name="Test_map_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="int" />
+          <Property Name="Test_id" Type="int" Nullable="false" />
+          <Property Name="Subject_Id" Type="int" Nullable="false" />
+          <Property Name="No_of_questions" Type="int" Nullable="false" />
+          <Property Name="Test_assigned_date" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Test_expiry_date" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Test_result_table">
+          <Key>
+            <PropertyRef Name="Test_result_id" />
+          </Key>
+          <Property Name="Test_result_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Test_map_id" Type="int" />
+          <Property Name="User_Id" Type="int" />
+          <Property Name="Test_id" Type="int" Nullable="false" />
+          <Property Name="Subject_Id" Type="int" Nullable="false" />
+          <Property Name="Marks" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Test_table">
+          <Key>
+            <PropertyRef Name="Test_id" />
+          </Key>
+          <Property Name="Test_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Subject_Id" Type="int" Nullable="false" />
+          <Property Name="No_of_questions" Type="int" Nullable="false" />
+          <Property Name="Difficulty_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User_table">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="First_Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Last_Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Confirm_Password" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Mobile" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Gender" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Option_ta__Quest__1B0907CE">
+          <End Role="Question_table" Type="Project_Online_AssessmentModel.Store.Question_table" Multiplicity="0..1" />
+          <End Role="Option_table" Type="Project_Online_AssessmentModel.Store.Option_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question_table">
+              <PropertyRef Name="Question_Id" />
+            </Principal>
+            <Dependent Role="Option_table">
+              <PropertyRef Name="Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question___Diffi__164452B1">
+          <End Role="Difficulty_table" Type="Project_Online_AssessmentModel.Store.Difficulty_table" Multiplicity="1" />
+          <End Role="Question_table" Type="Project_Online_AssessmentModel.Store.Question_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Difficulty_table">
+              <PropertyRef Name="Difficulty_Id" />
+            </Principal>
+            <Dependent Role="Question_table">
+              <PropertyRef Name="Difficulty_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question___Quest__36B12243">
+          <End Role="Question_table" Type="Project_Online_AssessmentModel.Store.Question_table" Multiplicity="1" />
+          <End Role="Question_mapping_table" Type="Project_Online_AssessmentModel.Store.Question_mapping_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question_table">
+              <PropertyRef Name="Question_Id" />
+            </Principal>
+            <Dependent Role="Question_mapping_table">
+              <PropertyRef Name="Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question___Subje__15502E78">
+          <End Role="Subject_table" Type="Project_Online_AssessmentModel.Store.Subject_table" Multiplicity="1" />
+          <End Role="Question_table" Type="Project_Online_AssessmentModel.Store.Question_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject_table">
+              <PropertyRef Name="Subject_Id" />
+            </Principal>
+            <Dependent Role="Question_table">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question___Test___35BCFE0A">
+          <End Role="Test_table" Type="Project_Online_AssessmentModel.Store.Test_table" Multiplicity="1" />
+          <End Role="Question_mapping_table" Type="Project_Online_AssessmentModel.Store.Question_mapping_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_table">
+              <PropertyRef Name="Test_id" />
+            </Principal>
+            <Dependent Role="Question_mapping_table">
+              <PropertyRef Name="Test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_mapp__Subje__3D5E1FD2">
+          <End Role="Subject_table" Type="Project_Online_AssessmentModel.Store.Subject_table" Multiplicity="1" />
+          <End Role="Test_mapping_table" Type="Project_Online_AssessmentModel.Store.Test_mapping_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject_table">
+              <PropertyRef Name="Subject_Id" />
+            </Principal>
+            <Dependent Role="Test_mapping_table">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_mapp__Test___3C69FB99">
+          <End Role="Test_table" Type="Project_Online_AssessmentModel.Store.Test_table" Multiplicity="1" />
+          <End Role="Test_mapping_table" Type="Project_Online_AssessmentModel.Store.Test_mapping_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_table">
+              <PropertyRef Name="Test_id" />
+            </Principal>
+            <Dependent Role="Test_mapping_table">
+              <PropertyRef Name="Test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_mapp__User___3B75D760">
+          <End Role="User_table" Type="Project_Online_AssessmentModel.Store.User_table" Multiplicity="0..1" />
+          <End Role="Test_mapping_table" Type="Project_Online_AssessmentModel.Store.Test_mapping_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_table">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Test_mapping_table">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_resu__Subje__48CFD27E">
+          <End Role="Subject_table" Type="Project_Online_AssessmentModel.Store.Subject_table" Multiplicity="1" />
+          <End Role="Test_result_table" Type="Project_Online_AssessmentModel.Store.Test_result_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject_table">
+              <PropertyRef Name="Subject_Id" />
+            </Principal>
+            <Dependent Role="Test_result_table">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_resu__Test___45F365D3">
+          <End Role="Test_mapping_table" Type="Project_Online_AssessmentModel.Store.Test_mapping_table" Multiplicity="0..1" />
+          <End Role="Test_result_table" Type="Project_Online_AssessmentModel.Store.Test_result_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_mapping_table">
+              <PropertyRef Name="Test_map_id" />
+            </Principal>
+            <Dependent Role="Test_result_table">
+              <PropertyRef Name="Test_map_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_resu__Test___47DBAE45">
+          <End Role="Test_table" Type="Project_Online_AssessmentModel.Store.Test_table" Multiplicity="1" />
+          <End Role="Test_result_table" Type="Project_Online_AssessmentModel.Store.Test_result_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_table">
+              <PropertyRef Name="Test_id" />
+            </Principal>
+            <Dependent Role="Test_result_table">
+              <PropertyRef Name="Test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_resu__User___46E78A0C">
+          <End Role="User_table" Type="Project_Online_AssessmentModel.Store.User_table" Multiplicity="0..1" />
+          <End Role="Test_result_table" Type="Project_Online_AssessmentModel.Store.Test_result_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_table">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Test_result_table">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_tabl__Diffi__30F848ED">
+          <End Role="Difficulty_table" Type="Project_Online_AssessmentModel.Store.Difficulty_table" Multiplicity="1" />
+          <End Role="Test_table" Type="Project_Online_AssessmentModel.Store.Test_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Difficulty_table">
+              <PropertyRef Name="Difficulty_Id" />
+            </Principal>
+            <Dependent Role="Test_table">
+              <PropertyRef Name="Difficulty_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_tabl__Subje__300424B4">
+          <End Role="Subject_table" Type="Project_Online_AssessmentModel.Store.Subject_table" Multiplicity="1" />
+          <End Role="Test_table" Type="Project_Online_AssessmentModel.Store.Test_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject_table">
+              <PropertyRef Name="Subject_Id" />
+            </Principal>
+            <Dependent Role="Test_table">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Project_Online_AssessmentModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Project_Online_AssessmentEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Difficulty_table" EntityType="Project_Online_AssessmentModel.Difficulty_table" />
+          <EntitySet Name="Gender_table" EntityType="Project_Online_AssessmentModel.Gender_table" />
+          <EntitySet Name="Option_table" EntityType="Project_Online_AssessmentModel.Option_table" />
+          <EntitySet Name="Question_mapping_table" EntityType="Project_Online_AssessmentModel.Question_mapping_table" />
+          <EntitySet Name="Question_table" EntityType="Project_Online_AssessmentModel.Question_table" />
+          <EntitySet Name="Subject_table" EntityType="Project_Online_AssessmentModel.Subject_table" />
+          <EntitySet Name="Test_mapping_table" EntityType="Project_Online_AssessmentModel.Test_mapping_table" />
+          <EntitySet Name="Test_result_table" EntityType="Project_Online_AssessmentModel.Test_result_table" />
+          <EntitySet Name="Test_table" EntityType="Project_Online_AssessmentModel.Test_table" />
+          <EntitySet Name="User_table" EntityType="Project_Online_AssessmentModel.User_table" />
+          <AssociationSet Name="FK__Question___Diffi__164452B1" Association="Project_Online_AssessmentModel.FK__Question___Diffi__164452B1">
+            <End Role="Difficulty_table" EntitySet="Difficulty_table" />
+            <End Role="Question_table" EntitySet="Question_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_tabl__Diffi__30F848ED" Association="Project_Online_AssessmentModel.FK__Test_tabl__Diffi__30F848ED">
+            <End Role="Difficulty_table" EntitySet="Difficulty_table" />
+            <End Role="Test_table" EntitySet="Test_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Option_ta__Quest__1B0907CE" Association="Project_Online_AssessmentModel.FK__Option_ta__Quest__1B0907CE">
+            <End Role="Question_table" EntitySet="Question_table" />
+            <End Role="Option_table" EntitySet="Option_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question___Quest__36B12243" Association="Project_Online_AssessmentModel.FK__Question___Quest__36B12243">
+            <End Role="Question_table" EntitySet="Question_table" />
+            <End Role="Question_mapping_table" EntitySet="Question_mapping_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question___Test___35BCFE0A" Association="Project_Online_AssessmentModel.FK__Question___Test___35BCFE0A">
+            <End Role="Test_table" EntitySet="Test_table" />
+            <End Role="Question_mapping_table" EntitySet="Question_mapping_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question___Subje__15502E78" Association="Project_Online_AssessmentModel.FK__Question___Subje__15502E78">
+            <End Role="Subject_table" EntitySet="Subject_table" />
+            <End Role="Question_table" EntitySet="Question_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_mapp__Subje__3D5E1FD2" Association="Project_Online_AssessmentModel.FK__Test_mapp__Subje__3D5E1FD2">
+            <End Role="Subject_table" EntitySet="Subject_table" />
+            <End Role="Test_mapping_table" EntitySet="Test_mapping_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_resu__Subje__48CFD27E" Association="Project_Online_AssessmentModel.FK__Test_resu__Subje__48CFD27E">
+            <End Role="Subject_table" EntitySet="Subject_table" />
+            <End Role="Test_result_table" EntitySet="Test_result_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_tabl__Subje__300424B4" Association="Project_Online_AssessmentModel.FK__Test_tabl__Subje__300424B4">
+            <End Role="Subject_table" EntitySet="Subject_table" />
+            <End Role="Test_table" EntitySet="Test_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_mapp__Test___3C69FB99" Association="Project_Online_AssessmentModel.FK__Test_mapp__Test___3C69FB99">
+            <End Role="Test_table" EntitySet="Test_table" />
+            <End Role="Test_mapping_table" EntitySet="Test_mapping_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_mapp__User___3B75D760" Association="Project_Online_AssessmentModel.FK__Test_mapp__User___3B75D760">
+            <End Role="User_table" EntitySet="User_table" />
+            <End Role="Test_mapping_table" EntitySet="Test_mapping_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_resu__Test___45F365D3" Association="Project_Online_AssessmentModel.FK__Test_resu__Test___45F365D3">
+            <End Role="Test_mapping_table" EntitySet="Test_mapping_table" />
+            <End Role="Test_result_table" EntitySet="Test_result_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_resu__Test___47DBAE45" Association="Project_Online_AssessmentModel.FK__Test_resu__Test___47DBAE45">
+            <End Role="Test_table" EntitySet="Test_table" />
+            <End Role="Test_result_table" EntitySet="Test_result_table" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Test_resu__User___46E78A0C" Association="Project_Online_AssessmentModel.FK__Test_resu__User___46E78A0C">
+            <End Role="User_table" EntitySet="User_table" />
+            <End Role="Test_result_table" EntitySet="Test_result_table" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Difficulty_table">
+          <Key>
+            <PropertyRef Name="Difficulty_Id" />
+          </Key>
+          <Property Name="Difficulty_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Difficulty_level" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Question_table" Relationship="Project_Online_AssessmentModel.FK__Question___Diffi__164452B1" FromRole="Difficulty_table" ToRole="Question_table" />
+          <NavigationProperty Name="Test_table" Relationship="Project_Online_AssessmentModel.FK__Test_tabl__Diffi__30F848ED" FromRole="Difficulty_table" ToRole="Test_table" />
+        </EntityType>
+        <EntityType Name="Gender_table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Option_table">
+          <Key>
+            <PropertyRef Name="Option_Id" />
+          </Key>
+          <Property Name="Option_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Question_Id" Type="Int32" />
+          <Property Name="Options" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Answer" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Question_table" Relationship="Project_Online_AssessmentModel.FK__Option_ta__Quest__1B0907CE" FromRole="Option_table" ToRole="Question_table" />
+        </EntityType>
+        <EntityType Name="Question_mapping_table">
+          <Key>
+            <PropertyRef Name="Question_map_id" />
+          </Key>
+          <Property Name="Question_map_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Test_id" Type="Int32" Nullable="false" />
+          <Property Name="Question_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Question_table" Relationship="Project_Online_AssessmentModel.FK__Question___Quest__36B12243" FromRole="Question_mapping_table" ToRole="Question_table" />
+          <NavigationProperty Name="Test_table" Relationship="Project_Online_AssessmentModel.FK__Question___Test___35BCFE0A" FromRole="Question_mapping_table" ToRole="Test_table" />
+        </EntityType>
+        <EntityType Name="Question_table">
+          <Key>
+            <PropertyRef Name="Question_Id" />
+          </Key>
+          <Property Name="Question_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject_Id" Type="Int32" Nullable="false" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Difficulty_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Difficulty_table" Relationship="Project_Online_AssessmentModel.FK__Question___Diffi__164452B1" FromRole="Question_table" ToRole="Difficulty_table" />
+          <NavigationProperty Name="Option_table" Relationship="Project_Online_AssessmentModel.FK__Option_ta__Quest__1B0907CE" FromRole="Question_table" ToRole="Option_table" />
+          <NavigationProperty Name="Question_mapping_table" Relationship="Project_Online_AssessmentModel.FK__Question___Quest__36B12243" FromRole="Question_table" ToRole="Question_mapping_table" />
+          <NavigationProperty Name="Subject_table" Relationship="Project_Online_AssessmentModel.FK__Question___Subje__15502E78" FromRole="Question_table" ToRole="Subject_table" />
+        </EntityType>
+        <EntityType Name="Subject_table">
+          <Key>
+            <PropertyRef Name="Subject_Id" />
+          </Key>
+          <Property Name="Subject_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject_name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Question_table" Relationship="Project_Online_AssessmentModel.FK__Question___Subje__15502E78" FromRole="Subject_table" ToRole="Question_table" />
+          <NavigationProperty Name="Test_mapping_table" Relationship="Project_Online_AssessmentModel.FK__Test_mapp__Subje__3D5E1FD2" FromRole="Subject_table" ToRole="Test_mapping_table" />
+          <NavigationProperty Name="Test_result_table" Relationship="Project_Online_AssessmentModel.FK__Test_resu__Subje__48CFD27E" FromRole="Subject_table" ToRole="Test_result_table" />
+          <NavigationProperty Name="Test_table" Relationship="Project_Online_AssessmentModel.FK__Test_tabl__Subje__300424B4" FromRole="Subject_table" ToRole="Test_table" />
+        </EntityType>
+        <EntityType Name="Test_mapping_table">
+          <Key>
+            <PropertyRef Name="Test_map_id" />
+          </Key>
+          <Property Name="Test_map_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="User_Id" Type="Int32" />
+          <Property Name="Test_id" Type="Int32" Nullable="false" />
+          <Property Name="Subject_Id" Type="Int32" Nullable="false" />
+          <Property Name="No_of_questions" Type="Int32" Nullable="false" />
+          <Property Name="Test_assigned_date" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Test_expiry_date" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Subject_table" Relationship="Project_Online_AssessmentModel.FK__Test_mapp__Subje__3D5E1FD2" FromRole="Test_mapping_table" ToRole="Subject_table" />
+          <NavigationProperty Name="Test_table" Relationship="Project_Online_AssessmentModel.FK__Test_mapp__Test___3C69FB99" FromRole="Test_mapping_table" ToRole="Test_table" />
+          <NavigationProperty Name="User_table" Relationship="Project_Online_AssessmentModel.FK__Test_mapp__User___3B75D760" FromRole="Test_mapping_table" ToRole="User_table" />
+          <NavigationProperty Name="Test_result_table" Relationship="Project_Online_AssessmentModel.FK__Test_resu__Test___45F365D3" FromRole="Test_mapping_table" ToRole="Test_result_table" />
+        </EntityType>
+        <EntityType Name="Test_result_table">
+          <Key>
+            <PropertyRef Name="Test_result_id" />
+          </Key>
+          <Property Name="Test_result_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Test_map_id" Type="Int32" />
+          <Property Name="User_Id" Type="Int32" />
+          <Property Name="Test_id" Type="Int32" Nullable="false" />
+          <Property Name="Subject_Id" Type="Int32" Nullable="false" />
+          <Property Name="Marks" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Subject_table" Relationship="Project_Online_AssessmentModel.FK__Test_resu__Subje__48CFD27E" FromRole="Test_result_table" ToRole="Subject_table" />
+          <NavigationProperty Name="Test_mapping_table" Relationship="Project_Online_AssessmentModel.FK__Test_resu__Test___45F365D3" FromRole="Test_result_table" ToRole="Test_mapping_table" />
+          <NavigationProperty Name="Test_table" Relationship="Project_Online_AssessmentModel.FK__Test_resu__Test___47DBAE45" FromRole="Test_result_table" ToRole="Test_table" />
+          <NavigationProperty Name="User_table" Relationship="Project_Online_AssessmentModel.FK__Test_resu__User___46E78A0C" FromRole="Test_result_table" ToRole="User_table" />
+        </EntityType>
+        <EntityType Name="Test_table">
+          <Key>
+            <PropertyRef Name="Test_id" />
+          </Key>
+          <Property Name="Test_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject_Id" Type="Int32" Nullable="false" />
+          <Property Name="No_of_questions" Type="Int32" Nullable="false" />
+          <Property Name="Difficulty_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Difficulty_table" Relationship="Project_Online_AssessmentModel.FK__Test_tabl__Diffi__30F848ED" FromRole="Test_table" ToRole="Difficulty_table" />
+          <NavigationProperty Name="Question_mapping_table" Relationship="Project_Online_AssessmentModel.FK__Question___Test___35BCFE0A" FromRole="Test_table" ToRole="Question_mapping_table" />
+          <NavigationProperty Name="Subject_table" Relationship="Project_Online_AssessmentModel.FK__Test_tabl__Subje__300424B4" FromRole="Test_table" ToRole="Subject_table" />
+          <NavigationProperty Name="Test_mapping_table" Relationship="Project_Online_AssessmentModel.FK__Test_mapp__Test___3C69FB99" FromRole="Test_table" ToRole="Test_mapping_table" />
+          <NavigationProperty Name="Test_result_table" Relationship="Project_Online_AssessmentModel.FK__Test_resu__Test___47DBAE45" FromRole="Test_table" ToRole="Test_result_table" />
+        </EntityType>
+        <EntityType Name="User_table">
+          <Key>
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="First_Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Last_Name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Confirm_Password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Gender" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Test_mapping_table" Relationship="Project_Online_AssessmentModel.FK__Test_mapp__User___3B75D760" FromRole="User_table" ToRole="Test_mapping_table" />
+          <NavigationProperty Name="Test_result_table" Relationship="Project_Online_AssessmentModel.FK__Test_resu__User___46E78A0C" FromRole="User_table" ToRole="Test_result_table" />
+        </EntityType>
+        <Association Name="FK__Question___Diffi__164452B1">
+          <End Role="Difficulty_table" Type="Project_Online_AssessmentModel.Difficulty_table" Multiplicity="1" />
+          <End Role="Question_table" Type="Project_Online_AssessmentModel.Question_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Difficulty_table">
+              <PropertyRef Name="Difficulty_Id" />
+            </Principal>
+            <Dependent Role="Question_table">
+              <PropertyRef Name="Difficulty_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_tabl__Diffi__30F848ED">
+          <End Role="Difficulty_table" Type="Project_Online_AssessmentModel.Difficulty_table" Multiplicity="1" />
+          <End Role="Test_table" Type="Project_Online_AssessmentModel.Test_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Difficulty_table">
+              <PropertyRef Name="Difficulty_Id" />
+            </Principal>
+            <Dependent Role="Test_table">
+              <PropertyRef Name="Difficulty_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Option_ta__Quest__1B0907CE">
+          <End Role="Question_table" Type="Project_Online_AssessmentModel.Question_table" Multiplicity="0..1" />
+          <End Role="Option_table" Type="Project_Online_AssessmentModel.Option_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question_table">
+              <PropertyRef Name="Question_Id" />
+            </Principal>
+            <Dependent Role="Option_table">
+              <PropertyRef Name="Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question___Quest__36B12243">
+          <End Role="Question_table" Type="Project_Online_AssessmentModel.Question_table" Multiplicity="1" />
+          <End Role="Question_mapping_table" Type="Project_Online_AssessmentModel.Question_mapping_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question_table">
+              <PropertyRef Name="Question_Id" />
+            </Principal>
+            <Dependent Role="Question_mapping_table">
+              <PropertyRef Name="Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question___Test___35BCFE0A">
+          <End Role="Test_table" Type="Project_Online_AssessmentModel.Test_table" Multiplicity="1" />
+          <End Role="Question_mapping_table" Type="Project_Online_AssessmentModel.Question_mapping_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_table">
+              <PropertyRef Name="Test_id" />
+            </Principal>
+            <Dependent Role="Question_mapping_table">
+              <PropertyRef Name="Test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question___Subje__15502E78">
+          <End Role="Subject_table" Type="Project_Online_AssessmentModel.Subject_table" Multiplicity="1" />
+          <End Role="Question_table" Type="Project_Online_AssessmentModel.Question_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject_table">
+              <PropertyRef Name="Subject_Id" />
+            </Principal>
+            <Dependent Role="Question_table">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_mapp__Subje__3D5E1FD2">
+          <End Role="Subject_table" Type="Project_Online_AssessmentModel.Subject_table" Multiplicity="1" />
+          <End Role="Test_mapping_table" Type="Project_Online_AssessmentModel.Test_mapping_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject_table">
+              <PropertyRef Name="Subject_Id" />
+            </Principal>
+            <Dependent Role="Test_mapping_table">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_resu__Subje__48CFD27E">
+          <End Role="Subject_table" Type="Project_Online_AssessmentModel.Subject_table" Multiplicity="1" />
+          <End Role="Test_result_table" Type="Project_Online_AssessmentModel.Test_result_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject_table">
+              <PropertyRef Name="Subject_Id" />
+            </Principal>
+            <Dependent Role="Test_result_table">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_tabl__Subje__300424B4">
+          <End Role="Subject_table" Type="Project_Online_AssessmentModel.Subject_table" Multiplicity="1" />
+          <End Role="Test_table" Type="Project_Online_AssessmentModel.Test_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject_table">
+              <PropertyRef Name="Subject_Id" />
+            </Principal>
+            <Dependent Role="Test_table">
+              <PropertyRef Name="Subject_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_mapp__Test___3C69FB99">
+          <End Role="Test_table" Type="Project_Online_AssessmentModel.Test_table" Multiplicity="1" />
+          <End Role="Test_mapping_table" Type="Project_Online_AssessmentModel.Test_mapping_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_table">
+              <PropertyRef Name="Test_id" />
+            </Principal>
+            <Dependent Role="Test_mapping_table">
+              <PropertyRef Name="Test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_mapp__User___3B75D760">
+          <End Role="User_table" Type="Project_Online_AssessmentModel.User_table" Multiplicity="0..1" />
+          <End Role="Test_mapping_table" Type="Project_Online_AssessmentModel.Test_mapping_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_table">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Test_mapping_table">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_resu__Test___45F365D3">
+          <End Role="Test_mapping_table" Type="Project_Online_AssessmentModel.Test_mapping_table" Multiplicity="0..1" />
+          <End Role="Test_result_table" Type="Project_Online_AssessmentModel.Test_result_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_mapping_table">
+              <PropertyRef Name="Test_map_id" />
+            </Principal>
+            <Dependent Role="Test_result_table">
+              <PropertyRef Name="Test_map_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_resu__Test___47DBAE45">
+          <End Role="Test_table" Type="Project_Online_AssessmentModel.Test_table" Multiplicity="1" />
+          <End Role="Test_result_table" Type="Project_Online_AssessmentModel.Test_result_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Test_table">
+              <PropertyRef Name="Test_id" />
+            </Principal>
+            <Dependent Role="Test_result_table">
+              <PropertyRef Name="Test_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Test_resu__User___46E78A0C">
+          <End Role="User_table" Type="Project_Online_AssessmentModel.User_table" Multiplicity="0..1" />
+          <End Role="Test_result_table" Type="Project_Online_AssessmentModel.Test_result_table" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_table">
+              <PropertyRef Name="User_Id" />
+            </Principal>
+            <Dependent Role="Test_result_table">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Project_Online_AssessmentModelStoreContainer" CdmEntityContainer="Project_Online_AssessmentEntities">
+          <EntitySetMapping Name="Difficulty_table">
+            <EntityTypeMapping TypeName="Project_Online_AssessmentModel.Difficulty_table">
+              <MappingFragment StoreEntitySet="Difficulty_table">
+                <ScalarProperty Name="Difficulty_Id" ColumnName="Difficulty_Id" />
+                <ScalarProperty Name="Difficulty_level" ColumnName="Difficulty_level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gender_table">
+            <EntityTypeMapping TypeName="Project_Online_AssessmentModel.Gender_table">
+              <MappingFragment StoreEntitySet="Gender_table">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Option_table">
+            <EntityTypeMapping TypeName="Project_Online_AssessmentModel.Option_table">
+              <MappingFragment StoreEntitySet="Option_table">
+                <ScalarProperty Name="Option_Id" ColumnName="Option_Id" />
+                <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
+                <ScalarProperty Name="Options" ColumnName="Options" />
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Question_mapping_table">
+            <EntityTypeMapping TypeName="Project_Online_AssessmentModel.Question_mapping_table">
+              <MappingFragment StoreEntitySet="Question_mapping_table">
+                <ScalarProperty Name="Question_map_id" ColumnName="Question_map_id" />
+                <ScalarProperty Name="Test_id" ColumnName="Test_id" />
+                <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Question_table">
+            <EntityTypeMapping TypeName="Project_Online_AssessmentModel.Question_table">
+              <MappingFragment StoreEntitySet="Question_table">
+                <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
+                <ScalarProperty Name="Subject_Id" ColumnName="Subject_Id" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="Difficulty_Id" ColumnName="Difficulty_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subject_table">
+            <EntityTypeMapping TypeName="Project_Online_AssessmentModel.Subject_table">
+              <MappingFragment StoreEntitySet="Subject_table">
+                <ScalarProperty Name="Subject_Id" ColumnName="Subject_Id" />
+                <ScalarProperty Name="Subject_name" ColumnName="Subject_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test_mapping_table">
+            <EntityTypeMapping TypeName="Project_Online_AssessmentModel.Test_mapping_table">
+              <MappingFragment StoreEntitySet="Test_mapping_table">
+                <ScalarProperty Name="Test_map_id" ColumnName="Test_map_id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Test_id" ColumnName="Test_id" />
+                <ScalarProperty Name="Subject_Id" ColumnName="Subject_Id" />
+                <ScalarProperty Name="No_of_questions" ColumnName="No_of_questions" />
+                <ScalarProperty Name="Test_assigned_date" ColumnName="Test_assigned_date" />
+                <ScalarProperty Name="Test_expiry_date" ColumnName="Test_expiry_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test_result_table">
+            <EntityTypeMapping TypeName="Project_Online_AssessmentModel.Test_result_table">
+              <MappingFragment StoreEntitySet="Test_result_table">
+                <ScalarProperty Name="Test_result_id" ColumnName="Test_result_id" />
+                <ScalarProperty Name="Test_map_id" ColumnName="Test_map_id" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Test_id" ColumnName="Test_id" />
+                <ScalarProperty Name="Subject_Id" ColumnName="Subject_Id" />
+                <ScalarProperty Name="Marks" ColumnName="Marks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test_table">
+            <EntityTypeMapping TypeName="Project_Online_AssessmentModel.Test_table">
+              <MappingFragment StoreEntitySet="Test_table">
+                <ScalarProperty Name="Test_id" ColumnName="Test_id" />
+                <ScalarProperty Name="Subject_Id" ColumnName="Subject_Id" />
+                <ScalarProperty Name="No_of_questions" ColumnName="No_of_questions" />
+                <ScalarProperty Name="Difficulty_Id" ColumnName="Difficulty_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_table">
+            <EntityTypeMapping TypeName="Project_Online_AssessmentModel.User_table">
+              <MappingFragment StoreEntitySet="User_table">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Confirm_Password" ColumnName="Confirm_Password" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
