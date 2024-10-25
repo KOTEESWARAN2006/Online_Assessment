@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Question map page</title>
+    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/Question_map_script.js"></script>
+</head>
+<body>
+    <form>
+        <input type="hidden" id="Test_Id" name="Test_Id" value="@ViewBag.Id"/>
+        <label>Subject</label>
+        @Html.DropDownList("Subject_Id", ViewBag.Subject_list as SelectList)
+        <label>Difficulty level</label>
+        @Html.DropDownList("Difficulty_Id", ViewBag.Difficulty_list as SelectList)
+        <button type="button" onclick="Get_questions()">Get Questions</button><br />
+        <br />
+        <button type="button" onclick="Map_questions()">Add Questions to this test</button>
+        @*<input type="text" id="searchbox" name="searchbox" placeholder="Search subject" />*@
+        <table id="Question_table">
+            <thead>
+                <tr>
+                    <td>Select</td>
+                    <td>Question_Id</td>
+                    <td>Questions</td>
+                    <td>Subject</td>
+                    <td>Difficulty level</td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </form>
+</body>
+</html>

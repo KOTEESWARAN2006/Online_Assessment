@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Question</title>
+        <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/QuestionScript.js"></script>
+</head>
+<body>
+    <form id="Question_form" name="Question_form">
+        <label>Question</label>
+        <br />
+        <input type="text" id="Question" name="Question" />
+        @Html.DropDownList("Subject_Id", ViewBag.Subject_list as SelectList)
+        @Html.DropDownList("Difficulty_Id", ViewBag.Difficulty_list as SelectList)
+        <br />
+        <br />
+        <label>Option1</label>
+        <input type="text" id="Option1" name="Option1" />
+        <input type="checkbox" id="checkbox1" name="checkbox1" value="false" /><br />
+        <label>Option2</label>
+        <input type="text" id="Option2" name="Option2" />
+        <input type="checkbox" id="checkbox2" name="checkbox2" value="false" /><br />
+        <label>Option3</label>
+        <input type="text" id="Option3" name="Option3" />
+        <input type="checkbox" id="checkbox3" name="checkbox3" value="false" /><br />
+        <label>Option4</label>
+        <input type="text" id="Option4" name="Option4" />
+        <input type="checkbox" id="checkbox4" name="checkbox4" value="false" /><br />
+        <br />
+        <br />
+        <button type="button" onclick="Add_question()">Add</button>
+    </form>
+</body>
+</html>

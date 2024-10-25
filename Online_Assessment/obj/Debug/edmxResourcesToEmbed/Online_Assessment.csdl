@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Online_AssessmentModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Online_AssessmentEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Admin_table" EntityType="Online_AssessmentModel.Admin_table" />
+    <EntitySet Name="Answer_table" EntityType="Online_AssessmentModel.Answer_table" />
+    <EntitySet Name="Difficulty_table" EntityType="Online_AssessmentModel.Difficulty_table" />
+    <EntitySet Name="Option_table" EntityType="Online_AssessmentModel.Option_table" />
+    <EntitySet Name="Question_mapping_table" EntityType="Online_AssessmentModel.Question_mapping_table" />
+    <EntitySet Name="Question_table" EntityType="Online_AssessmentModel.Question_table" />
+    <EntitySet Name="Subject_table" EntityType="Online_AssessmentModel.Subject_table" />
+    <EntitySet Name="Test_invitation_table" EntityType="Online_AssessmentModel.Test_invitation_table" />
+    <EntitySet Name="Test_table" EntityType="Online_AssessmentModel.Test_table" />
+    <EntitySet Name="User_table" EntityType="Online_AssessmentModel.User_table" />
+    <AssociationSet Name="FK__Answer_ta__Optio__3C69FB99" Association="Online_AssessmentModel.FK__Answer_ta__Optio__3C69FB99">
+      <End Role="Option_table" EntitySet="Option_table" />
+      <End Role="Answer_table" EntitySet="Answer_table" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Answer_ta__Quest__3B75D760" Association="Online_AssessmentModel.FK__Answer_ta__Quest__3B75D760">
+      <End Role="Question_table" EntitySet="Question_table" />
+      <End Role="Answer_table" EntitySet="Answer_table" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Answer_ta__Test___398D8EEE" Association="Online_AssessmentModel.FK__Answer_ta__Test___398D8EEE">
+      <End Role="Test_table" EntitySet="Test_table" />
+      <End Role="Answer_table" EntitySet="Answer_table" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Answer_ta__User___3A81B327" Association="Online_AssessmentModel.FK__Answer_ta__User___3A81B327">
+      <End Role="User_table" EntitySet="User_table" />
+      <End Role="Answer_table" EntitySet="Answer_table" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Question___Diffi__1CF15040" Association="Online_AssessmentModel.FK__Question___Diffi__1CF15040">
+      <End Role="Difficulty_table" EntitySet="Difficulty_table" />
+      <End Role="Question_table" EntitySet="Question_table" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Option_ta__Quest__21B6055D" Association="Online_AssessmentModel.FK__Option_ta__Quest__21B6055D">
+      <End Role="Question_table" EntitySet="Question_table" />
+      <End Role="Option_table" EntitySet="Option_table" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Question___Quest__2E1BDC42" Association="Online_AssessmentModel.FK__Question___Quest__2E1BDC42">
+      <End Role="Question_table" EntitySet="Question_table" />
+      <End Role="Question_mapping_table" EntitySet="Question_mapping_table" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Question___Test___2D27B809" Association="Online_AssessmentModel.FK__Question___Test___2D27B809">
+      <End Role="Test_table" EntitySet="Test_table" />
+      <End Role="Question_mapping_table" EntitySet="Question_mapping_table" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Question___Subje__1BFD2C07" Association="Online_AssessmentModel.FK__Question___Subje__1BFD2C07">
+      <End Role="Subject_table" EntitySet="Subject_table" />
+      <End Role="Question_table" EntitySet="Question_table" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Test_invi__Test___33D4B598" Association="Online_AssessmentModel.FK__Test_invi__Test___33D4B598">
+      <End Role="Test_table" EntitySet="Test_table" />
+      <End Role="Test_invitation_table" EntitySet="Test_invitation_table" />
+    </AssociationSet>
+    <FunctionImport Name="Get_questions" ReturnType="Collection(Online_AssessmentModel.Get_questions_Result)">
+      <Parameter Name="Subject_id" Mode="In" Type="Int32" />
+      <Parameter Name="Difficulty_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="Admin_table">
+    <Key>
+      <PropertyRef Name="Admin_Id" />
+    </Key>
+    <Property Name="Admin_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Admin_name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Answer_table">
+    <Key>
+      <PropertyRef Name="Answer_Id" />
+    </Key>
+    <Property Name="Answer_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Test_Id" Type="Int32" Nullable="false" />
+    <Property Name="User_Id" Type="Int32" Nullable="false" />
+    <Property Name="Question_Id" Type="Int32" Nullable="false" />
+    <Property Name="Option_Id" Type="Int32" Nullable="false" />
+    <Property Name="Submit_date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Option_table" Relationship="Online_AssessmentModel.FK__Answer_ta__Optio__3C69FB99" FromRole="Answer_table" ToRole="Option_table" />
+    <NavigationProperty Name="Question_table" Relationship="Online_AssessmentModel.FK__Answer_ta__Quest__3B75D760" FromRole="Answer_table" ToRole="Question_table" />
+    <NavigationProperty Name="Test_table" Relationship="Online_AssessmentModel.FK__Answer_ta__Test___398D8EEE" FromRole="Answer_table" ToRole="Test_table" />
+    <NavigationProperty Name="User_table" Relationship="Online_AssessmentModel.FK__Answer_ta__User___3A81B327" FromRole="Answer_table" ToRole="User_table" />
+  </EntityType>
+  <EntityType Name="Difficulty_table">
+    <Key>
+      <PropertyRef Name="Difficulty_Id" />
+    </Key>
+    <Property Name="Difficulty_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Difficulty_level" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Question_table" Relationship="Online_AssessmentModel.FK__Question___Diffi__1CF15040" FromRole="Difficulty_table" ToRole="Question_table" />
+  </EntityType>
+  <EntityType Name="Option_table">
+    <Key>
+      <PropertyRef Name="Option_Id" />
+    </Key>
+    <Property Name="Option_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Question_Id" Type="Int32" Nullable="false" />
+    <Property Name="Options" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="Answer" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Answer_table" Relationship="Online_AssessmentModel.FK__Answer_ta__Optio__3C69FB99" FromRole="Option_table" ToRole="Answer_table" />
+    <NavigationProperty Name="Question_table" Relationship="Online_AssessmentModel.FK__Option_ta__Quest__21B6055D" FromRole="Option_table" ToRole="Question_table" />
+  </EntityType>
+  <EntityType Name="Question_mapping_table">
+    <Key>
+      <PropertyRef Name="Question_map_id" />
+    </Key>
+    <Property Name="Question_map_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Test_Id" Type="Int32" Nullable="false" />
+    <Property Name="Question_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Question_table" Relationship="Online_AssessmentModel.FK__Question___Quest__2E1BDC42" FromRole="Question_mapping_table" ToRole="Question_table" />
+    <NavigationProperty Name="Test_table" Relationship="Online_AssessmentModel.FK__Question___Test___2D27B809" FromRole="Question_mapping_table" ToRole="Test_table" />
+  </EntityType>
+  <EntityType Name="Question_table">
+    <Key>
+      <PropertyRef Name="Question_Id" />
+    </Key>
+    <Property Name="Question_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject_id" Type="Int32" Nullable="false" />
+    <Property Name="Questions" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="Difficulty_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Answer_table" Relationship="Online_AssessmentModel.FK__Answer_ta__Quest__3B75D760" FromRole="Question_table" ToRole="Answer_table" />
+    <NavigationProperty Name="Difficulty_table" Relationship="Online_AssessmentModel.FK__Question___Diffi__1CF15040" FromRole="Question_table" ToRole="Difficulty_table" />
+    <NavigationProperty Name="Option_table" Relationship="Online_AssessmentModel.FK__Option_ta__Quest__21B6055D" FromRole="Question_table" ToRole="Option_table" />
+    <NavigationProperty Name="Question_mapping_table" Relationship="Online_AssessmentModel.FK__Question___Quest__2E1BDC42" FromRole="Question_table" ToRole="Question_mapping_table" />
+    <NavigationProperty Name="Subject_table" Relationship="Online_AssessmentModel.FK__Question___Subje__1BFD2C07" FromRole="Question_table" ToRole="Subject_table" />
+  </EntityType>
+  <EntityType Name="Subject_table">
+    <Key>
+      <PropertyRef Name="Subject_Id" />
+    </Key>
+    <Property Name="Subject_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject_name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Question_table" Relationship="Online_AssessmentModel.FK__Question___Subje__1BFD2C07" FromRole="Subject_table" ToRole="Question_table" />
+  </EntityType>
+  <EntityType Name="Test_invitation_table">
+    <Key>
+      <PropertyRef Name="Invitation_Id" />
+    </Key>
+    <Property Name="Invitation_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Test_Id" Type="Int32" Nullable="false" />
+    <Property Name="User_email" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Invited_date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Test_table" Relationship="Online_AssessmentModel.FK__Test_invi__Test___33D4B598" FromRole="Test_invitation_table" ToRole="Test_table" />
+  </EntityType>
+  <EntityType Name="Test_table">
+    <Key>
+      <PropertyRef Name="Test_Id" />
+    </Key>
+    <Property Name="Test_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Test_name" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="Created_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Start_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="End_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Duration" Type="Time" Precision="0" />
+    <NavigationProperty Name="Answer_table" Relationship="Online_AssessmentModel.FK__Answer_ta__Test___398D8EEE" FromRole="Test_table" ToRole="Answer_table" />
+    <NavigationProperty Name="Question_mapping_table" Relationship="Online_AssessmentModel.FK__Question___Test___2D27B809" FromRole="Test_table" ToRole="Question_mapping_table" />
+    <NavigationProperty Name="Test_invitation_table" Relationship="Online_AssessmentModel.FK__Test_invi__Test___33D4B598" FromRole="Test_table" ToRole="Test_invitation_table" />
+  </EntityType>
+  <EntityType Name="User_table">
+    <Key>
+      <PropertyRef Name="User_Id" />
+    </Key>
+    <Property Name="User_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="First_name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Last_name" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Answer_table" Relationship="Online_AssessmentModel.FK__Answer_ta__User___3A81B327" FromRole="User_table" ToRole="Answer_table" />
+  </EntityType>
+  <Association Name="FK__Answer_ta__Optio__3C69FB99">
+    <End Role="Option_table" Type="Online_AssessmentModel.Option_table" Multiplicity="1" />
+    <End Role="Answer_table" Type="Online_AssessmentModel.Answer_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Option_table">
+        <PropertyRef Name="Option_Id" />
+      </Principal>
+      <Dependent Role="Answer_table">
+        <PropertyRef Name="Option_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Answer_ta__Quest__3B75D760">
+    <End Role="Question_table" Type="Online_AssessmentModel.Question_table" Multiplicity="1" />
+    <End Role="Answer_table" Type="Online_AssessmentModel.Answer_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question_table">
+        <PropertyRef Name="Question_Id" />
+      </Principal>
+      <Dependent Role="Answer_table">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Answer_ta__Test___398D8EEE">
+    <End Role="Test_table" Type="Online_AssessmentModel.Test_table" Multiplicity="1" />
+    <End Role="Answer_table" Type="Online_AssessmentModel.Answer_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Test_table">
+        <PropertyRef Name="Test_Id" />
+      </Principal>
+      <Dependent Role="Answer_table">
+        <PropertyRef Name="Test_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Answer_ta__User___3A81B327">
+    <End Role="User_table" Type="Online_AssessmentModel.User_table" Multiplicity="1" />
+    <End Role="Answer_table" Type="Online_AssessmentModel.Answer_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User_table">
+        <PropertyRef Name="User_Id" />
+      </Principal>
+      <Dependent Role="Answer_table">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Question___Diffi__1CF15040">
+    <End Role="Difficulty_table" Type="Online_AssessmentModel.Difficulty_table" Multiplicity="1" />
+    <End Role="Question_table" Type="Online_AssessmentModel.Question_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Difficulty_table">
+        <PropertyRef Name="Difficulty_Id" />
+      </Principal>
+      <Dependent Role="Question_table">
+        <PropertyRef Name="Difficulty_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Option_ta__Quest__21B6055D">
+    <End Role="Question_table" Type="Online_AssessmentModel.Question_table" Multiplicity="1" />
+    <End Role="Option_table" Type="Online_AssessmentModel.Option_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question_table">
+        <PropertyRef Name="Question_Id" />
+      </Principal>
+      <Dependent Role="Option_table">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Question___Quest__2E1BDC42">
+    <End Role="Question_table" Type="Online_AssessmentModel.Question_table" Multiplicity="1" />
+    <End Role="Question_mapping_table" Type="Online_AssessmentModel.Question_mapping_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Question_table">
+        <PropertyRef Name="Question_Id" />
+      </Principal>
+      <Dependent Role="Question_mapping_table">
+        <PropertyRef Name="Question_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Question___Test___2D27B809">
+    <End Role="Test_table" Type="Online_AssessmentModel.Test_table" Multiplicity="1" />
+    <End Role="Question_mapping_table" Type="Online_AssessmentModel.Question_mapping_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Test_table">
+        <PropertyRef Name="Test_Id" />
+      </Principal>
+      <Dependent Role="Question_mapping_table">
+        <PropertyRef Name="Test_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Question___Subje__1BFD2C07">
+    <End Role="Subject_table" Type="Online_AssessmentModel.Subject_table" Multiplicity="1" />
+    <End Role="Question_table" Type="Online_AssessmentModel.Question_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subject_table">
+        <PropertyRef Name="Subject_Id" />
+      </Principal>
+      <Dependent Role="Question_table">
+        <PropertyRef Name="Subject_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Test_invi__Test___33D4B598">
+    <End Role="Test_table" Type="Online_AssessmentModel.Test_table" Multiplicity="1" />
+    <End Role="Test_invitation_table" Type="Online_AssessmentModel.Test_invitation_table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Test_table">
+        <PropertyRef Name="Test_Id" />
+      </Principal>
+      <Dependent Role="Test_invitation_table">
+        <PropertyRef Name="Test_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Get_questions_Result">
+    <Property Type="Int32" Name="question_id" Nullable="false" />
+    <Property Type="String" Name="Questions" Nullable="false" MaxLength="255" />
+    <Property Type="String" Name="Subject_name" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Difficulty_level" Nullable="false" MaxLength="50" />
+  </ComplexType>
+</Schema>
