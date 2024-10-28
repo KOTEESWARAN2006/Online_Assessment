@@ -138,3 +138,4 @@ inner join Subject_table st on st.Subject_Id = qt.Subject_Id
 inner join Difficulty_table
 on qt.Difficulty_Id=Difficulty_table.Difficulty_Id
 where st.Subject_Id=2 and qt.Difficulty_Id=2
+
