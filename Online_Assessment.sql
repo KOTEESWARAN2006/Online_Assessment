@@ -127,3 +127,5 @@ select*from Test_invitation_table
 where Test_Id=@Test_id
 end
 exec Get_invited_users_list @test_id=0
+
+select*from Test_table
