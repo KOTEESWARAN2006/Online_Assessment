@@ -1,5 +1,6 @@
 create database Online_Assessment
 use Online_Assessment
+LAPTOP-2IMRD289
 
 create table Admin_table(
 Admin_Id int primary key identity(1,1),
@@ -76,22 +77,35 @@ insert into subject_table
 values('Select'),
 ('HTML'),
 ('Asp.Net'),
-('SQL')
+('SQL'),
+('All')
 insert into Difficulty_table
 values('Select'),
 ('Entry-level'),
 ('Mid-level'),
-('Senior-level')
+('Senior-level'),
+('All')
 
 create procedure Get_questions
 @Subject_id int = 4,@Difficulty_id int = 4
 as begin
+if @Subject_id<4 and @Difficulty_id<4
+begin
 select question_id,Questions,st.Subject_name,Difficulty_level
 from Question_table qt
 inner join Subject_table st on st.Subject_Id = qt.Subject_Id
 inner join Difficulty_table
 on qt.Difficulty_Id=Difficulty_table.Difficulty_Id
 where st.Subject_Id=@Subject_id and qt.Difficulty_Id=@Difficulty_id
+end
+else
+begin
+select Question_Id,Questions,st.Subject_name,Difficulty_level
+from Question_table qt
+inner join Subject_table st on st.Subject_Id = qt.Subject_Id
+inner join Difficulty_table
+on qt.Difficulty_Id=Difficulty_table.Difficulty_Id
+end
 end
 
 select Question_Id 
@@ -117,3 +131,11 @@ set @result = 0
 end
 select @result as Result
 end
+
+select question_id,Questions,st.Subject_name,Difficulty_level
+from Question_table qt
+inner join Subject_table st on st.Subject_Id = qt.Subject_Id
+inner join Difficulty_table
+on qt.Difficulty_Id=Difficulty_table.Difficulty_Id
+where st.Subject_Id=2 and qt.Difficulty_Id=2
+

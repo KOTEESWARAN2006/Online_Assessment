@@ -19,6 +19,11 @@ namespace Online_Assessment.Controllers
             return View();
         }
 
+        public ActionResult Test_create_page()
+        {
+            return View();
+        }
+
         public JsonResult Create_test(string test)
         {
             Test_table Test_objects = new Test_table();
