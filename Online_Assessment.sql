@@ -1,13 +1,12 @@
 create database Online_Assessment
 use Online_Assessment
-LAPTOP-2IMRD289
 
 create table Admin_table(
 Admin_Id int primary key identity(1,1),
 Admin_name varchar(100) not null unique,
 Password varchar(50) not null
 )
-
+select*from User_table
 create table User_table(
 User_Id int primary key identity(1,1),
 First_name varchar(100) not null,
@@ -48,6 +47,7 @@ Start_date datetime not null,
 End_date datetime not null,
 Duration time(0)
 )
+select*from Question_mapping_table
 
 create table Question_mapping_table(
 Question_map_id int primary key identity(1,1),
@@ -58,9 +58,10 @@ Question_Id int foreign key references Question_table(Question_Id) not null,
 create table Test_invitation_table(
 Invitation_Id int primary key identity(1,1),
 Test_Id int foreign key references Test_table(Test_Id) not null,
-User_email varchar(100) foreign key references user_table(email),
+User_email varchar(100) not null,
 Invited_date datetime not null
 )
+select*from Test_invitation_table
 
 create table Answer_table(
 Answer_Id int primary key identity(1,1),
@@ -77,35 +78,22 @@ insert into subject_table
 values('Select'),
 ('HTML'),
 ('Asp.Net'),
-('SQL'),
-('All')
+('SQL')
 insert into Difficulty_table
 values('Select'),
 ('Entry-level'),
 ('Mid-level'),
-('Senior-level'),
-('All')
+('Senior-level')
 
 create procedure Get_questions
 @Subject_id int = 4,@Difficulty_id int = 4
 as begin
-if @Subject_id<4 and @Difficulty_id<4
-begin
 select question_id,Questions,st.Subject_name,Difficulty_level
 from Question_table qt
 inner join Subject_table st on st.Subject_Id = qt.Subject_Id
 inner join Difficulty_table
 on qt.Difficulty_Id=Difficulty_table.Difficulty_Id
 where st.Subject_Id=@Subject_id and qt.Difficulty_Id=@Difficulty_id
-end
-else
-begin
-select Question_Id,Questions,st.Subject_name,Difficulty_level
-from Question_table qt
-inner join Subject_table st on st.Subject_Id = qt.Subject_Id
-inner join Difficulty_table
-on qt.Difficulty_Id=Difficulty_table.Difficulty_Id
-end
 end
 
 select Question_Id 
@@ -132,10 +120,10 @@ end
 select @result as Result
 end
 
-select question_id,Questions,st.Subject_name,Difficulty_level
-from Question_table qt
-inner join Subject_table st on st.Subject_Id = qt.Subject_Id
-inner join Difficulty_table
-on qt.Difficulty_Id=Difficulty_table.Difficulty_Id
-where st.Subject_Id=2 and qt.Difficulty_Id=2
-
+create procedure Get_invited_users_list
+@Test_id int
+as begin
+select*from Test_invitation_table
+where Test_Id=@Test_id
+end
+exec Get_invited_users_list @test_id=0
