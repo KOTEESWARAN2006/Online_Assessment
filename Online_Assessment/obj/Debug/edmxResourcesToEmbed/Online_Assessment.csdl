@@ -136,7 +136,7 @@
     </Key>
     <Property Name="Invitation_Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
     <Property Name="Test_Id" Type="Int32" Nullable="false" />
-    <Property Name="User_email" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="User_email" Type="String" MaxLength="100" Unicode="false" FixedLength="false" Nullable="false" />
     <Property Name="Invited_date" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Test_table" Relationship="Online_AssessmentModel.FK__Test_invi__Test___33D4B598" FromRole="Test_invitation_table" ToRole="Test_table" />
   </EntityType>

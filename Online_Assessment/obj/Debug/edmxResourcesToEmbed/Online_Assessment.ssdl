@@ -117,7 +117,7 @@
     </Key>
     <Property Name="Invitation_Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Test_Id" Type="int" Nullable="false" />
-    <Property Name="User_email" Type="varchar" MaxLength="100" />
+    <Property Name="User_email" Type="varchar" Nullable="false" MaxLength="100" />
     <Property Name="Invited_date" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Test_table">
@@ -131,9 +131,6 @@
     <Property Name="End_date" Type="datetime" Nullable="false" />
     <Property Name="Duration" Type="time" Precision="0" />
   </EntityType>
-  <!--Errors Found During Generation:
-      warning 6035: The relationship 'FK__Test_invi__User___34C8D9D1' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-      -->
   <EntityType Name="User_table">
     <Key>
       <PropertyRef Name="User_Id" />

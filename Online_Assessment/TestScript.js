@@ -66,7 +66,7 @@ function Get_test_list() {
                     {
                         data: '',
                         render: function (data, type, row) {
-                            return '<button onclick="Assign_test()">Assign Test</button>' +
+                            return '<button onclick="Invite_users('+ row.Test_Id +')">Invite Users</button>' +
                                 '<button onclick="Add_edit_question(' + row.Test_Id + ')">Add/Edit Questions</button>';
                         }
                     }
@@ -121,4 +121,8 @@ function sqltimetojstime(sqltime) {
 
 function Add_edit_question(Test_Id) {
     window.location.href = "/Project/Question_map_page/" + Test_Id;
+};
+
+function Invite_users(Test_Id) {
+    window.location.href = "/Project/Invitation_page/" + Test_Id;
 };

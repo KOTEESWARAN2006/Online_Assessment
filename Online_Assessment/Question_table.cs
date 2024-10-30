@@ -11,7 +11,6 @@ namespace Online_Assessment
 {
     using System;
     using System.Collections.Generic;
-    using Newtonsoft.Json;
     
     public partial class Question_table
     {
@@ -27,7 +26,6 @@ namespace Online_Assessment
         public string Questions { get; set; }
         public int Difficulty_Id { get; set; }
     
-        [JsonIgnore]
         public virtual ICollection<Answer_table> Answer_table { get; set; }
         public virtual Difficulty_table Difficulty_table { get; set; }
         public virtual ICollection<Option_table> Option_table { get; set; }

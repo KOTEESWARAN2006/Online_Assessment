@@ -121,5 +121,39 @@ namespace Online_Assessment.Controllers
 
             return Json(JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Invitation_page(int Id)
+        {
+            ViewBag.Test_Id = Id;
+            return View();
+        }
+
+        public JsonResult Invite_for_test(int Id,string Invited_emails)
+        {
+            Online_AssessmentEntities context = new Online_AssessmentEntities();
+            Test_invitation_table Invitation = new Test_invitation_table();
+            List<string> Email_list = new List<string>();
+            Email_list = JsonConvert.DeserializeObject<List<string>>(Invited_emails).ToList();
+
+            foreach (var row in Email_list)
+            {
+                Invitation.Test_Id = Id;
+                Invitation.User_email = row;
+                Invitation.Invited_date = DateTime.Now;
+                context.Test_invitation_table.Add(Invitation);
+                context.SaveChanges();
+            }
+
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Get_invited_users_list(int Id)
+        {
+            Online_AssessmentEntities context = new Online_AssessmentEntities();
+            List<Test_invitation_table> Invited_list = context.Database.SqlQuery<Test_invitation_table>(
+                "exec Get_invited_users_list @Test_id",
+                new SqlParameter("@Test_id",Id)).ToList();
+            return Json(Invited_list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

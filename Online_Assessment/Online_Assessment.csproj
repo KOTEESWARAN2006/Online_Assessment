@@ -344,6 +344,7 @@
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Global.asax" />
+    <Content Include="Invitation_script.js" />
     <Content Include="Question_map_script.js" />
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
@@ -377,6 +378,8 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="Scripts\dataTables.js" />
+    <Content Include="Scripts\dataTables.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap4.js" />
@@ -475,6 +478,8 @@
     <Content Include="Views\Project\Test_page.cshtml" />
     <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.1.min.map" />
+    <Content Include="Views\Project\User_register_page.cshtml" />
+    <Content Include="Views\Project\Invitation_page.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
