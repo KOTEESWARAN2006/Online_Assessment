@@ -20,7 +20,7 @@ function Invite_for_test() {
         url: '/Project/Invite_for_test',
         type: 'POST',
         dataType: 'json',
-        data: { Id:Test_id, Invited_emails: JSON.stringify(separated_emails) },
+        data: { Id: Test_id, Invited_emails: JSON.stringify(separated_emails) },
         success: function () {
             Get_invited_users_list($("#Test_id").val());
             $("#invited_email").val('');

@@ -52,5 +52,41 @@ namespace Online_Assessment
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_questions_Result>("Get_questions", subject_idParameter, difficulty_idParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> Find_exist_testid(Nullable<int> test_id)
+        {
+            var test_idParameter = test_id.HasValue ?
+                new ObjectParameter("test_id", test_id) :
+                new ObjectParameter("test_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Find_exist_testid", test_idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Get_mapped_questionIds(Nullable<int> test_id)
+        {
+            var test_idParameter = test_id.HasValue ?
+                new ObjectParameter("test_id", test_id) :
+                new ObjectParameter("test_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Get_mapped_questionIds", test_idParameter);
+        }
+    
+        public virtual int Delete_existing_questionIds(Nullable<int> test_id)
+        {
+            var test_idParameter = test_id.HasValue ?
+                new ObjectParameter("test_id", test_id) :
+                new ObjectParameter("test_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_existing_questionIds", test_idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Find_email(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Find_email", emailParameter);
+        }
     }
 }

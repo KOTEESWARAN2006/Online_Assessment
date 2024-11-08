@@ -4,8 +4,10 @@
 });
 
 function Get_questions() {
+    var mappedQuestionIds = [];
     var Subject_Id = $("#Subject_Id").val();
     var Difficulty_Id = $("#Difficulty_Id").val();
+    var Test_Id = $('#Test_Id').val();
 
     $.ajax({
         url: '/Project/Get_questions',
@@ -28,15 +30,36 @@ function Get_questions() {
                     { data: "Subject_name" },
                     { data: "Difficulty_level" }
                 ],
+                drawCallback: function () {
+                    mappedQuestionIds.forEach(function (Id) {
+                        $('input[type="checkbox"][value="' + Id + '"]').prop('checked', true);
+                    });
+                },
             });
-            $("#searchbox").on('keyup', function () {
-                $("#Question_table").DataTable().column(3).search(this.value).draw();
+            $.ajax({
+                url: '/Project/Get_mapped_questionIds',
+                data: { Test_Id: Test_Id },
+                dataType: 'json',
+                type: 'POST',
+                success: function (mappedIds) {
+                    mappedQuestionIds = mappedIds;
+                    data.forEach(function (Id) {
+                        $('#Question_table input[type="checkbox"][value="' + Id + '"]').prop('checked', true);
+                    });
+                },
+                error: function () {
+                    alert("Failed to fetch mapped question ids");
+                }
             });
         },
         error: function () {
             alert("fail");
         }
-    })
+    });
+
+    $("#searchbox").on('keyup', function () {
+        $("#Question_table").DataTable().column(3).search(this.value).draw();
+    });
 };
 
 function Map_questions() {

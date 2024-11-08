@@ -261,6 +261,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="Delete_existing_questionIds" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="test_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Find_email" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Email" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Find_exist_testid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="test_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Get_mapped_questionIds" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="test_id" Type="int" Mode="In" />
+  </Function>
   <Function Name="Get_questions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Subject_id" Type="int" Mode="In" />
     <Parameter Name="Difficulty_id" Type="int" Mode="In" />

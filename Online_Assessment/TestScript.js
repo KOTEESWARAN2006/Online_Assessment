@@ -8,7 +8,7 @@ function create_test() {
         Test_name: $("#test_name").val(),
         Start_date: decodeURIComponent($("#startdate").val()),
         End_date: decodeURIComponent($("#enddate").val()),
-        Duration: '00:' + decodeURIComponent($("#duration").val())
+        Duration: decodeURIComponent($("#duration").val()) + ':00'
     };
 $.ajax({
     url: '/Project/Create_test',
@@ -66,8 +66,8 @@ function Get_test_list() {
                     {
                         data: '',
                         render: function (data, type, row) {
-                            return '<button onclick="Invite_users('+ row.Test_Id +')">Invite Users</button>' +
-                                '<button onclick="Add_edit_question(' + row.Test_Id + ')">Add/Edit Questions</button>';
+                            return '<button onclick="Invite_users('+ row.Test_Id +')" class="btn btn-success">Invite Users</button>' +
+                                '<button onclick="Add_edit_question(' + row.Test_Id + ')" class="btn btn-primary">Add/Edit Questions</button>';
                         }
                     }
                 ]

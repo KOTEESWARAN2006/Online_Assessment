@@ -266,6 +266,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Delete_existing_questionIds" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="test_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Find_email" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Email" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Find_exist_testid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="test_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Get_mapped_questionIds" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="test_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="Get_questions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Subject_id" Type="int" Mode="In" />
           <Parameter Name="Difficulty_id" Type="int" Mode="In" />
@@ -328,6 +340,18 @@
           <FunctionImport Name="Get_questions" ReturnType="Collection(Online_AssessmentModel.Get_questions_Result)">
             <Parameter Name="Subject_id" Mode="In" Type="Int32" />
             <Parameter Name="Difficulty_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Find_exist_testid" ReturnType="Collection(Int32)">
+          <Parameter Name="test_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Get_mapped_questionIds" ReturnType="Collection(Int32)">
+          <Parameter Name="test_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Delete_existing_questionIds">
+          <Parameter Name="test_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Find_email" ReturnType="Collection(Int32)">
+            <Parameter Name="Email" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Admin_table">
@@ -680,6 +704,10 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Find_exist_testid" FunctionName="Online_AssessmentModel.Store.Find_exist_testid" />
+          <FunctionImportMapping FunctionImportName="Get_mapped_questionIds" FunctionName="Online_AssessmentModel.Store.Get_mapped_questionIds" />
+          <FunctionImportMapping FunctionImportName="Delete_existing_questionIds" FunctionName="Online_AssessmentModel.Store.Delete_existing_questionIds" />
+          <FunctionImportMapping FunctionImportName="Find_email" FunctionName="Online_AssessmentModel.Store.Find_email" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

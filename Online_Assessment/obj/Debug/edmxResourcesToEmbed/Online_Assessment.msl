@@ -110,5 +110,9 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Find_exist_testid" FunctionName="Online_AssessmentModel.Store.Find_exist_testid" />
+    <FunctionImportMapping FunctionImportName="Get_mapped_questionIds" FunctionName="Online_AssessmentModel.Store.Get_mapped_questionIds" />
+    <FunctionImportMapping FunctionImportName="Delete_existing_questionIds" FunctionName="Online_AssessmentModel.Store.Delete_existing_questionIds" />
+    <FunctionImportMapping FunctionImportName="Find_email" FunctionName="Online_AssessmentModel.Store.Find_email" />
   </EntityContainerMapping>
 </Mapping>

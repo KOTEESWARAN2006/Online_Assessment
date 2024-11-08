@@ -107,24 +107,61 @@ namespace Online_Assessment.Controllers
             return Json(Question_list, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Map_questions_totest(int Test_Id,string Question_Id)
+        public JsonResult Get_mapped_questionIds(int Test_Id)
+        {
+            Online_AssessmentEntities context = new Online_AssessmentEntities();
+            List<int> Mapped_questionIds = new List<int>();
+            Mapped_questionIds = context.Database.SqlQuery<int>(
+                "exec Get_mapped_questionIds @test_id",
+                new SqlParameter("@test_id", Test_Id)).ToList();
+            return Json(Mapped_questionIds, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Map_questions_totest(int Test_Id, string Question_Id)
         {
             Online_AssessmentEntities context = new Online_AssessmentEntities();
 
-            List<int> Question_id_list = new List<int>();
-            Question_id_list = JsonConvert.DeserializeObject<List<string>>(Question_Id).Select(int.Parse).ToList();
+            int Test_exist = context.Database.SqlQuery<int>(
+                "exec Find_exist_testid @test_id",
+                new SqlParameter("@test_id", Test_Id)).SingleOrDefault();
 
-            Question_mapping_table Mapping = new Question_mapping_table();
-
-            foreach (var row in Question_id_list)
+            if (Test_exist == 1)
             {
-                Mapping.Test_Id = Test_Id;
-                Mapping.Question_Id = row;
-                context.Question_mapping_table.Add(Mapping);
-                context.SaveChanges();
-            }
+                int result = context.Database.ExecuteSqlCommand(
+                    "exec Delete_existing_questionIds @test_id",
+                    new SqlParameter("@test_id", Test_Id));
 
-            return Json(JsonRequestBehavior.AllowGet);
+                List<int> Question_id_list = new List<int>();
+                Question_id_list = JsonConvert.DeserializeObject<List<string>>(Question_Id).Select(int.Parse).ToList();
+
+                Question_mapping_table Mapping = new Question_mapping_table();
+
+                foreach (var row in Question_id_list)
+                {
+                    Mapping.Test_Id = Test_Id;
+                    Mapping.Question_Id = row;
+                    context.Question_mapping_table.Add(Mapping);
+                    context.SaveChanges();
+                }
+                return Json(JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                List<int> Question_id_list = new List<int>();
+                Question_id_list = JsonConvert.DeserializeObject<List<string>>(Question_Id).Select(int.Parse).ToList();
+
+                Question_mapping_table Mapping = new Question_mapping_table();
+
+                foreach (var row in Question_id_list)
+                {
+                    Mapping.Test_Id = Test_Id;
+                    Mapping.Question_Id = row;
+                    context.Question_mapping_table.Add(Mapping);
+                    context.SaveChanges();
+                }
+
+                return Json(JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult Invitation_page(int Id)
@@ -133,7 +170,7 @@ namespace Online_Assessment.Controllers
             return View();
         }
 
-        public JsonResult Invite_for_test(int Id,string Invited_emails)
+        public JsonResult Invite_for_test(int Id, string Invited_emails)
         {
             Online_AssessmentEntities context = new Online_AssessmentEntities();
             Test_invitation_table Invitation = new Test_invitation_table();
@@ -149,6 +186,11 @@ namespace Online_Assessment.Controllers
                 context.SaveChanges();
             }
 
+            //foreach (var user_email in Invited_emails)
+            //{
+            //    context.Test_invitation_table.Add(new Test_invitation_table { 
+            //User_email = user_email,Invited_date = DateTime.Now,Test_Id =Id });}
+            //context.SaveChanges();
             return Json(JsonRequestBehavior.AllowGet);
         }
 
@@ -157,8 +199,98 @@ namespace Online_Assessment.Controllers
             Online_AssessmentEntities context = new Online_AssessmentEntities();
             List<Test_invitation_table> Invited_list = context.Database.SqlQuery<Test_invitation_table>(
                 "exec Get_invited_users_list @Test_id",
-                new SqlParameter("@Test_id",Id)).ToList();
+                new SqlParameter("@Test_id", Id)).ToList();
             return Json(Invited_list, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult User_register_page()
+        {
+            return View();
+        }
+
+        public JsonResult Validate_email(string email)
+        {
+            Online_AssessmentEntities context = new Online_AssessmentEntities();
+
+            int Result = context.Database.SqlQuery<int>(
+                "exec Find_email @Email",
+                new SqlParameter("@Email", email)).SingleOrDefault();
+            return Json(Result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Register_user(User_table formdata)
+        {
+            Online_AssessmentEntities context = new Online_AssessmentEntities();
+            context.User_table.Add(formdata);
+            int result = context.SaveChanges();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult User_login_page()
+        {
+            return View(new User_credential());
+        }
+
+        public ActionResult User_authentication(User_credential credential)
+        {
+            if (ModelState.IsValid)
+            {
+                Online_AssessmentEntities context = new Online_AssessmentEntities();
+                User_table Find_user = null;
+
+                foreach (var user in context.User_table)
+                {
+                    if (user.Email == credential.Email)
+                    {
+                        Find_user = user;
+                        break;
+                    }
+                }
+
+
+
+                if (Find_user != null)
+                {
+                    if (Find_user.Password == credential.Password)
+                    {
+                        Session["user_id"] = Find_user.User_Id;
+                        Session["user_email"] = Find_user.Email;
+                        return RedirectToAction("User_dashboard");
+
+                    }
+                    else
+                    {
+                        TempData["PasswordError"] = "Incorrect password";
+                    }
+                }
+                else
+                {
+                    TempData["EmailError"] = "Email does not exist";
+                }
+            }
+            else
+            {
+                TempData["EmailError"] = "Please enter a valid email address.";
+                TempData["PasswordError"] = "Password is required.";
+            }
+            return View("User_login_page", credential);
+        }
+
+
+        public ActionResult User_dashboard()
+        {
+            return View();
+        }
+
+        public JsonResult Get_invited_testlist()
+        {
+            var user_id = Session["user_id"];
+            var user_email = Session["user_email"];
+
+            Online_AssessmentEntities context = new Online_AssessmentEntities();
+
+
+            return Json(JsonRequestBehavior.AllowGet);
         }
     }
 }

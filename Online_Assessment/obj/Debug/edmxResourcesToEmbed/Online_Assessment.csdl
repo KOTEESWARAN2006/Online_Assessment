@@ -55,6 +55,18 @@
       <Parameter Name="Subject_id" Mode="In" Type="Int32" />
       <Parameter Name="Difficulty_id" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="Find_exist_testid" ReturnType="Collection(Int32)">
+      <Parameter Name="test_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Get_mapped_questionIds" ReturnType="Collection(Int32)">
+      <Parameter Name="test_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Delete_existing_questionIds">
+      <Parameter Name="test_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Find_email" ReturnType="Collection(Int32)">
+      <Parameter Name="Email" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Admin_table">
     <Key>

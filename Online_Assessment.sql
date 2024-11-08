@@ -105,11 +105,11 @@ where Test_Id=1
 
 select*from Question_mapping_table
 
-create procedure Find_exist_test
+create procedure Find_exist_testid
 @test_id int
 as begin
 declare @result int
-if exists (select 1 from Question_mapping_table where Test_Id=1)
+if exists (select 1 from Question_mapping_table where Test_Id=@test_id)
 begin
 set @result = 1
 end
@@ -119,6 +119,7 @@ set @result = 0
 end
 select @result as Result
 end
+exec Find_exist_testid @test_id
 
 create procedure Get_invited_users_list
 @Test_id int
@@ -126,6 +127,58 @@ as begin
 select*from Test_invitation_table
 where Test_Id=@Test_id
 end
-exec Get_invited_users_list @test_id=0
+exec Get_invited_users_list @test_id=1
+
 
 select*from Test_table
+
+create procedure Get_mapped_questionIds
+@test_id int
+as begin
+select Question_Id
+from Question_mapping_table
+where Test_Id=@test_id
+end
+exec Get_mapped_questionIds 
+
+create procedure Delete_existing_questionIds
+@test_id int
+as begin
+delete Question_mapping_table
+where Test_Id=@test_id
+end
+
+select*from Question_mapping_table
+
+create procedure Find_email
+@Email varchar(100)
+as begin
+declare @Result int
+if exists (select 1 from user_table where email=@Email)
+begin
+set @result=1
+end
+else
+begin
+set @Result=0
+end
+select @Result as Result
+end
+
+select*from test_table
+select*from test_invitation_table
+
+create procedure Get_invited_testlist
+@email varchar(100)
+as begin
+select Test_name,Start_date,End_date,Duration
+from Test_table t
+inner join Test_invitation_table ti
+on t.Test_Id=ti.Test_Id
+where ti.User_email = @email
+end
+exec Get_invited_testlist 'abc.com'
+
+
+
+
