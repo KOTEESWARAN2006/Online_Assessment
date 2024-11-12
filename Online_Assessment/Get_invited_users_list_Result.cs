@@ -10,15 +10,13 @@
 namespace Online_Assessment
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Test_invitation_table
+    public partial class Get_invited_users_list_Result
     {
         public int Invitation_Id { get; set; }
         public int Test_Id { get; set; }
         public string User_email { get; set; }
         public System.DateTime Invited_date { get; set; }
         public Nullable<bool> Status { get; set; }
-        public virtual Test_table Test_table { get; set; }
     }
 }

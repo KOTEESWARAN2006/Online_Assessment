@@ -70,6 +70,7 @@
     <EntitySetMapping Name="Test_invitation_table">
       <EntityTypeMapping TypeName="Online_AssessmentModel.Test_invitation_table">
         <MappingFragment StoreEntitySet="Test_invitation_table">
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Invitation_Id" ColumnName="Invitation_Id" />
           <ScalarProperty Name="Test_Id" ColumnName="Test_Id" />
           <ScalarProperty Name="User_email" ColumnName="User_email" />
@@ -114,5 +115,27 @@
     <FunctionImportMapping FunctionImportName="Get_mapped_questionIds" FunctionName="Online_AssessmentModel.Store.Get_mapped_questionIds" />
     <FunctionImportMapping FunctionImportName="Delete_existing_questionIds" FunctionName="Online_AssessmentModel.Store.Delete_existing_questionIds" />
     <FunctionImportMapping FunctionImportName="Find_email" FunctionName="Online_AssessmentModel.Store.Find_email" />
+    <FunctionImportMapping FunctionImportName="Get_invited_testlist" FunctionName="Online_AssessmentModel.Store.Get_invited_testlist">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Online_AssessmentModel.Get_invited_testlist_Result">
+          <ScalarProperty Name="Test_Id" ColumnName="Test_Id" />
+          <ScalarProperty Name="Test_name" ColumnName="Test_name" />
+          <ScalarProperty Name="Start_date" ColumnName="Start_date" />
+          <ScalarProperty Name="End_date" ColumnName="End_date" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_invited_users_list" FunctionName="Online_AssessmentModel.Store.Get_invited_users_list">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Online_AssessmentModel.Get_invited_users_list_Result">
+          <ScalarProperty Name="Invitation_Id" ColumnName="Invitation_Id" />
+          <ScalarProperty Name="Test_Id" ColumnName="Test_Id" />
+          <ScalarProperty Name="User_email" ColumnName="User_email" />
+          <ScalarProperty Name="Invited_date" ColumnName="Invited_date" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -88,5 +88,23 @@ namespace Online_Assessment
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Find_email", emailParameter);
         }
+    
+        public virtual ObjectResult<Get_invited_testlist_Result> Get_invited_testlist(string email)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_invited_testlist_Result>("Get_invited_testlist", emailParameter);
+        }
+    
+        public virtual ObjectResult<Get_invited_users_list_Result> Get_invited_users_list(Nullable<int> test_id)
+        {
+            var test_idParameter = test_id.HasValue ?
+                new ObjectParameter("Test_id", test_id) :
+                new ObjectParameter("Test_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_invited_users_list_Result>("Get_invited_users_list", test_idParameter);
+        }
     }
 }

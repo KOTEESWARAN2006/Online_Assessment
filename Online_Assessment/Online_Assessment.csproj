@@ -117,8 +117,14 @@
     <Compile Include="Answer_table.cs">
       <DependentUpon>Online_Assessment.tt</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="App_Start\ProjectController.cs" />
     <Compile Include="Difficulty_table.cs">
+      <DependentUpon>Online_Assessment.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Get_invited_testlist_Result.cs">
+      <DependentUpon>Online_Assessment.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Get_invited_users_list_Result.cs">
       <DependentUpon>Online_Assessment.tt</DependentUpon>
     </Compile>
     <Compile Include="Get_questions_Result.cs">
@@ -343,6 +349,7 @@
     <Content Include="App_Start\Content\DataTables\images\sort_desc.png" />
     <Content Include="App_Start\Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="App_Start\Content\DataTables\swf\flashExport.swf" />
+    <Content Include="datatable_bs.css" />
     <Content Include="Global.asax" />
     <Content Include="Invitation_script.js" />
     <Content Include="Question_map_script.js" />
@@ -466,6 +473,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="TestScript.js" />
     <Content Include="QuestionScript.js" />
+    <Content Include="Timer.js" />
+    <Content Include="user_dash_script.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -483,9 +492,12 @@
     <Content Include="Views\Project\Invitation_page.cshtml" />
     <Content Include="Views\Project\User_login_page.cshtml" />
     <Content Include="Views\Project\User_dashboard.cshtml" />
+    <Content Include="Views\Project\Test_start_page.cshtml" />
+    <Content Include="Views\Project\Live_test_page.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

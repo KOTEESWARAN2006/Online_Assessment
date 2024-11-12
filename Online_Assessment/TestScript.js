@@ -1,6 +1,54 @@
 ﻿$(document).ready(function () {
-    alert("Loaded");
-    Get_test_list();
+        $.ajax({
+            url: '/Project/Get_test_lists',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $("#test_table").DataTable().clear().destroy();
+                $("#test_table").DataTable({
+                    data: data,
+                    columns: [
+                        { data: "Test_Id" },
+                        { data: "Test_name" },
+                        {
+                            data: '',
+                            render: function (data, type, row) {
+                                return sqldatetojsdate(row.Created_date);
+                            }
+                        },
+                        {
+                            data: '',
+                            render: function (data, type, row) {
+                                return sqldatetojsdate(row.Start_date);
+                            }
+                        },
+                        {
+                            data: '',
+                            render: function (data, type, row) {
+                                return sqldatetojsdate(row.End_date);
+                            }
+                        },
+                        {
+
+                            data: '',
+                            render: function (data, type, row) {
+                                return sqltimetojstime(row.Duration);
+                            }
+                        },
+                        {
+                            data: '',
+                            render: function (data, type, row) {
+                                return '<button onclick="Invite_users(' + row.Test_Id + ')" class="btn btn-success">Invite Users</button>' +
+                                    '<button onclick="Add_edit_question(' + row.Test_Id + ')" class="btn btn-primary">Add/Edit Questions</button>';
+                            }
+                        }
+                    ]
+                });
+            },
+            error: function () {
+                alert("Get test list fail");
+            }
+        });
 });
 
 function create_test() {
@@ -24,60 +72,7 @@ $.ajax({
 });
 };
 
-function Get_test_list() {
-    $.ajax({
-        url: '/Project/Get_test_lists',
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            alert("test list ready");
-            $("#test_table").DataTable().clear().destroy();
 
-            $("#test_table").DataTable({
-                data: data,
-                columns: [
-                    { data: "Test_Id" },
-                    { data: "Test_name" },
-                    {
-                        data: '',
-                        render: function (data, type, row) {
-                            return sqldatetojsdate(row.Created_date);
-                        }
-                    },
-                    {
-                        data: '',
-                        render: function (data, type, row) {
-                            return sqldatetojsdate(row.Start_date);
-                        }
-                    },
-                    {
-                        data: '',
-                        render: function (data, type, row) {
-                            return sqldatetojsdate(row.End_date);
-                        }
-                    },
-                    {
-
-                        data: '',
-                        render: function (data, type, row) {
-                            return sqltimetojstime(row.Duration);
-                        }
-                    },
-                    {
-                        data: '',
-                        render: function (data, type, row) {
-                            return '<button onclick="Invite_users('+ row.Test_Id +')" class="btn btn-success">Invite Users</button>' +
-                                '<button onclick="Add_edit_question(' + row.Test_Id + ')" class="btn btn-primary">Add/Edit Questions</button>';
-                        }
-                    }
-                ]
-            });
-        },
-        error: function () {
-            alert("Get test list fail");
-        }
-    });
-};
 
 function sqldatetojsdate(sqldate) {
 

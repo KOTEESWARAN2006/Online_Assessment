@@ -119,6 +119,7 @@
     <Property Name="Test_Id" Type="int" Nullable="false" />
     <Property Name="User_email" Type="varchar" Nullable="false" MaxLength="100" />
     <Property Name="Invited_date" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="bit" />
   </EntityType>
   <EntityType Name="Test_table">
     <Key>
@@ -269,6 +270,12 @@
   </Function>
   <Function Name="Find_exist_testid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="test_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Get_invited_testlist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Get_invited_users_list" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Test_id" Type="int" Mode="In" />
   </Function>
   <Function Name="Get_mapped_questionIds" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="test_id" Type="int" Mode="In" />

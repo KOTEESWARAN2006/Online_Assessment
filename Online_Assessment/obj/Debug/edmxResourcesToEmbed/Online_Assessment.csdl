@@ -67,6 +67,12 @@
     <FunctionImport Name="Find_email" ReturnType="Collection(Int32)">
       <Parameter Name="Email" Mode="In" Type="String" />
     </FunctionImport>
+    <FunctionImport Name="Get_invited_testlist" ReturnType="Collection(Online_AssessmentModel.Get_invited_testlist_Result)">
+      <Parameter Name="email" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Get_invited_users_list" ReturnType="Collection(Online_AssessmentModel.Get_invited_users_list_Result)">
+      <Parameter Name="Test_id" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Admin_table">
     <Key>
@@ -151,6 +157,7 @@
     <Property Name="User_email" Type="String" MaxLength="100" Unicode="false" FixedLength="false" Nullable="false" />
     <Property Name="Invited_date" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Test_table" Relationship="Online_AssessmentModel.FK__Test_invi__Test___33D4B598" FromRole="Test_invitation_table" ToRole="Test_table" />
+    <Property Type="Boolean" Name="Status" />
   </EntityType>
   <EntityType Name="Test_table">
     <Key>
@@ -302,5 +309,19 @@
     <Property Type="String" Name="Questions" Nullable="false" MaxLength="255" />
     <Property Type="String" Name="Subject_name" Nullable="false" MaxLength="100" />
     <Property Type="String" Name="Difficulty_level" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="Get_invited_testlist_Result">
+    <Property Type="Int32" Name="Test_Id" Nullable="false" />
+    <Property Type="String" Name="Test_name" Nullable="false" MaxLength="255" />
+    <Property Type="DateTime" Name="Start_date" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="End_date" Nullable="false" Precision="23" />
+    <Property Type="Time" Name="Duration" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Get_invited_users_list_Result">
+    <Property Type="Int32" Name="Invitation_Id" Nullable="false" />
+    <Property Type="Int32" Name="Test_Id" Nullable="false" />
+    <Property Type="String" Name="User_email" Nullable="false" MaxLength="100" />
+    <Property Type="DateTime" Name="Invited_date" Nullable="false" Precision="23" />
+    <Property Type="Boolean" Name="Status" Nullable="true" />
   </ComplexType>
 </Schema>

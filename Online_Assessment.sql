@@ -168,17 +168,24 @@ end
 select*from test_table
 select*from test_invitation_table
 
-create procedure Get_invited_testlist
+alter procedure Get_invited_testlist
 @email varchar(100)
 as begin
-select Test_name,Start_date,End_date,Duration
+select t.Test_Id,Test_name,Start_date,End_date,Status,Duration
 from Test_table t
 inner join Test_invitation_table ti
 on t.Test_Id=ti.Test_Id
 where ti.User_email = @email
 end
-exec Get_invited_testlist 'abc.com'
+exec Get_invited_testlist '123@k.com'
 
 
+select*from test_invitation_table
+select*from answer_table
 
+select t.test_id,Test_name,Start_date,End_date,Duration
+from Test_table t
+inner join Test_invitation_table ti
+on t.Test_Id=ti.Test_Id
+where ti.User_email = '123@k.com'
 

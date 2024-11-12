@@ -21,9 +21,11 @@ namespace Online_Assessment.Models
 
     public class Test_lists
     {
+        public int Test_Id { get; set; }
         public string Test_name { get; set; }
-        public DateTime Start_date { get; set; }
-        public DateTime End_date { get; set; }
-        public TimeSpan Duration { get; set; } 
+        public System.DateTime Start_date { get; set; }
+        public System.DateTime End_date { get; set; }
+        public Nullable<bool> Status { get; set; }
+        public Nullable<System.TimeSpan> Duration { get; set; }
     }
 }
