@@ -137,5 +137,21 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Options_for_livetest" FunctionName="Online_AssessmentModel.Store.Options_for_livetest">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Online_AssessmentModel.Options_for_livetest_Result">
+          <ScalarProperty Name="Option_Id" ColumnName="Option_Id" />
+          <ScalarProperty Name="Options" ColumnName="Options" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Questions_for_livetest" FunctionName="Online_AssessmentModel.Store.Questions_for_livetest">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Online_AssessmentModel.Questions_for_livetest_Result">
+          <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
+          <ScalarProperty Name="questions" ColumnName="questions" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

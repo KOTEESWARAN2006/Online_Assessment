@@ -2,7 +2,7 @@
     $('input[type="checkbox"]').change(function () {
         $('input[type="checkbox"]').not(this).prop('checked', false).val(false);
         $(this).val(true);
-    })
+    });
 });
 
 function Add_question() {

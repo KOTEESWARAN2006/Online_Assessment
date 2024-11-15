@@ -1,13 +1,10 @@
 ﻿$(document).ready(function () {
-    Get_questions();
     
-});
-
-function Get_questions() {
     var mappedQuestionIds = [];
     var Subject_Id = $("#Subject_Id").val();
     var Difficulty_Id = $("#Difficulty_Id").val();
     var Test_Id = $('#Test_Id').val();
+
 
     $.ajax({
         url: '/Project/Get_questions',
@@ -60,7 +57,8 @@ function Get_questions() {
     $("#searchbox").on('keyup', function () {
         $("#Question_table").DataTable().column(3).search(this.value).draw();
     });
-};
+});
+
 
 function Map_questions() {
     var Collection_question = Getselectedquestion_Ids();

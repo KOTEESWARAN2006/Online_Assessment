@@ -179,7 +179,7 @@ where ti.User_email = @email
 end
 exec Get_invited_testlist '123@k.com'
 
-
+select*from Test_table
 select*from test_invitation_table
 select*from answer_table
 
@@ -189,3 +189,34 @@ inner join Test_invitation_table ti
 on t.Test_Id=ti.Test_Id
 where ti.User_email = '123@k.com'
 
+select Question_Id
+from Question_mapping_table
+where Test_Id=1
+
+create procedure Questions_for_livetest
+@test_id int
+as begin
+select Question_Id,questions
+from Question_table
+where Question_Id in (select Question_Id
+from Question_mapping_table
+where Test_Id=@test_id)
+end
+exec Questions_for_livetest 1
+exec Options_for_livetest 1
+create procedure Options_for_livetest
+@question_id int
+as begin
+select Option_Id,Options
+from Option_table
+where Question_Id=@question_id
+end
+
+exec Options_for_livetest 1
+
+select*from Question_table
+select*from Option_table
+select*from Test_invitation_table
+
+
+exec Get_invited_testlist '123@k.com'

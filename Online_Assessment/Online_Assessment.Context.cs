@@ -21,7 +21,7 @@ namespace Online_Assessment
         public Online_AssessmentEntities()
             : base("name=Online_AssessmentEntities")
         {
-            this.Configuration.ProxyCreationEnabled = false;
+            this.Configuration.ProxyCreationEnabled = true;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -105,6 +105,24 @@ namespace Online_Assessment
                 new ObjectParameter("Test_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_invited_users_list_Result>("Get_invited_users_list", test_idParameter);
+        }
+    
+        public virtual ObjectResult<Options_for_livetest_Result> Options_for_livetest(Nullable<int> question_id)
+        {
+            var question_idParameter = question_id.HasValue ?
+                new ObjectParameter("question_id", question_id) :
+                new ObjectParameter("question_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Options_for_livetest_Result>("Options_for_livetest", question_idParameter);
+        }
+    
+        public virtual ObjectResult<Questions_for_livetest_Result> Questions_for_livetest(Nullable<int> test_id)
+        {
+            var test_idParameter = test_id.HasValue ?
+                new ObjectParameter("test_id", test_id) :
+                new ObjectParameter("test_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Questions_for_livetest_Result>("Questions_for_livetest", test_idParameter);
         }
     }
 }

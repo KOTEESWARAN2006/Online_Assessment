@@ -1,4 +1,8 @@
 ﻿$(document).ready(function () {
+    Get_invited_users_list();
+});
+
+function Get_invited_users_list() {
     $.ajax({
         url: '/Project/Get_invited_users_list',
         dataType: 'json',
@@ -36,7 +40,7 @@
             alert("fail");
         }
     });
-});
+};
 
 function Invite_for_test() {
     var Invited_emails = $("#invited_email").val();
@@ -57,8 +61,9 @@ function Invite_for_test() {
         dataType: 'json',
         data: { Id: Test_id, Invited_emails: JSON.stringify(separated_emails) },
         success: function () {
-            Get_invited_users_list($("#Test_id").val());
-            $("#invited_email").val('');
+            alert("Invited successfully!");
+            $("#invited_email").val("");
+            Get_invited_users_list();
         },
         error: function () {
             alert("Invitation fail");

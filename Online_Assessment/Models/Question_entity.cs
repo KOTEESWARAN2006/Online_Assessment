@@ -28,4 +28,16 @@ namespace Online_Assessment.Models
         public Nullable<bool> Status { get; set; }
         public Nullable<System.TimeSpan> Duration { get; set; }
     }
+
+    public class Question_entity_for_test
+    {
+        public int Question_Id { get; set; }
+        public string Questions { get; set; }
+    }
+
+    public class Options_enitty_for_test
+    {
+        public int Option_Id { get; set; }
+        public string Options { get; set; }
+    }
 }

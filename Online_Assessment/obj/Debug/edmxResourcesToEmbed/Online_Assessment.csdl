@@ -73,6 +73,12 @@
     <FunctionImport Name="Get_invited_users_list" ReturnType="Collection(Online_AssessmentModel.Get_invited_users_list_Result)">
       <Parameter Name="Test_id" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="Options_for_livetest" ReturnType="Collection(Online_AssessmentModel.Options_for_livetest_Result)">
+      <Parameter Name="question_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Questions_for_livetest" ReturnType="Collection(Online_AssessmentModel.Questions_for_livetest_Result)">
+      <Parameter Name="test_id" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="Admin_table">
     <Key>
@@ -323,5 +329,13 @@
     <Property Type="String" Name="User_email" Nullable="false" MaxLength="100" />
     <Property Type="DateTime" Name="Invited_date" Nullable="false" Precision="23" />
     <Property Type="Boolean" Name="Status" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Options_for_livetest_Result">
+    <Property Type="Int32" Name="Option_Id" Nullable="false" />
+    <Property Type="String" Name="Options" Nullable="false" MaxLength="255" />
+  </ComplexType>
+  <ComplexType Name="Questions_for_livetest_Result">
+    <Property Type="Int32" Name="Question_Id" Nullable="false" />
+    <Property Type="String" Name="questions" Nullable="false" MaxLength="255" />
   </ComplexType>
 </Schema>

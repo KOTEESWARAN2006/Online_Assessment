@@ -284,4 +284,10 @@
     <Parameter Name="Subject_id" Type="int" Mode="In" />
     <Parameter Name="Difficulty_id" Type="int" Mode="In" />
   </Function>
+  <Function Name="Options_for_livetest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="question_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Questions_for_livetest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="test_id" Type="int" Mode="In" />
+  </Function>
 </Schema>

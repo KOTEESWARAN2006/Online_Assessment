@@ -289,6 +289,12 @@
           <Parameter Name="Subject_id" Type="int" Mode="In" />
           <Parameter Name="Difficulty_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="Options_for_livetest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="question_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Questions_for_livetest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="test_id" Type="int" Mode="In" />
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -364,7 +370,13 @@
           <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Get_invited_users_list" ReturnType="Collection(Online_AssessmentModel.Get_invited_users_list_Result)">
-            <Parameter Name="Test_id" Mode="In" Type="Int32" />
+          <Parameter Name="Test_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Options_for_livetest" ReturnType="Collection(Online_AssessmentModel.Options_for_livetest_Result)">
+            <Parameter Name="question_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Questions_for_livetest" ReturnType="Collection(Online_AssessmentModel.Questions_for_livetest_Result)">
+            <Parameter Name="test_id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Admin_table">
@@ -617,6 +629,14 @@
           <Property Type="DateTime" Name="Invited_date" Nullable="false" Precision="23" />
           <Property Type="Boolean" Name="Status" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="Options_for_livetest_Result">
+          <Property Type="Int32" Name="Option_Id" Nullable="false" />
+          <Property Type="String" Name="Options" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="Questions_for_livetest_Result">
+          <Property Type="Int32" Name="Question_Id" Nullable="false" />
+          <Property Type="String" Name="questions" Nullable="false" MaxLength="255" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -756,6 +776,22 @@
                 <ScalarProperty Name="User_email" ColumnName="User_email" />
                 <ScalarProperty Name="Invited_date" ColumnName="Invited_date" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Options_for_livetest" FunctionName="Online_AssessmentModel.Store.Options_for_livetest">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Online_AssessmentModel.Options_for_livetest_Result">
+                <ScalarProperty Name="Option_Id" ColumnName="Option_Id" />
+                <ScalarProperty Name="Options" ColumnName="Options" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Questions_for_livetest" FunctionName="Online_AssessmentModel.Store.Questions_for_livetest">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Online_AssessmentModel.Questions_for_livetest_Result">
+                <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
+                <ScalarProperty Name="questions" ColumnName="questions" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

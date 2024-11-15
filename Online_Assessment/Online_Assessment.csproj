@@ -149,10 +149,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Online_Assessment.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Options_for_livetest_Result.cs">
+      <DependentUpon>Online_Assessment.tt</DependentUpon>
+    </Compile>
     <Compile Include="Option_table.cs">
       <DependentUpon>Online_Assessment.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Questions_for_livetest_Result.cs">
+      <DependentUpon>Online_Assessment.tt</DependentUpon>
+    </Compile>
     <Compile Include="Question_mapping_table.cs">
       <DependentUpon>Online_Assessment.tt</DependentUpon>
     </Compile>
@@ -351,6 +357,7 @@
     <Content Include="App_Start\Content\DataTables\swf\flashExport.swf" />
     <Content Include="datatable_bs.css" />
     <Content Include="Global.asax" />
+    <Content Include="handlebar.js" />
     <Content Include="Invitation_script.js" />
     <Content Include="Question_map_script.js" />
     <Content Include="App_Start\Content\DataTables\css\semanticui.scss" />
@@ -385,6 +392,9 @@
     <Content Include="App_Start\Content\bootstrap.rtl.css.map" />
     <Content Include="App_Start\Content\bootstrap.min.css.map" />
     <Content Include="App_Start\Content\bootstrap.css.map" />
+    <Content Include="App_Readme\Handlebarsjs_release-notes.md" />
+    <Content Include="App_Readme\Handlebarsjs_README.md" />
+    <Content Include="App_Readme\Handlebarsjs_LICENSE" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\dataTables.js" />
     <Content Include="Scripts\dataTables.min.js" />
@@ -464,6 +474,14 @@
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
+    <Content Include="Scripts\handlebars.amd.js" />
+    <Content Include="Scripts\handlebars.amd.min.js" />
+    <Content Include="Scripts\handlebars.js" />
+    <Content Include="Scripts\handlebars.min.js" />
+    <Content Include="Scripts\handlebars.runtime.amd.js" />
+    <Content Include="Scripts\handlebars.runtime.amd.min.js" />
+    <Content Include="Scripts\handlebars.runtime.js" />
+    <Content Include="Scripts\handlebars.runtime.min.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
     <Content Include="Scripts\jquery-3.7.1.slim.js" />
@@ -471,9 +489,10 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Start_script.js" />
     <Content Include="TestScript.js" />
     <Content Include="QuestionScript.js" />
-    <Content Include="Timer.js" />
+    <Content Include="Live_script.js" />
     <Content Include="user_dash_script.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -545,7 +564,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>2939</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:2119/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
