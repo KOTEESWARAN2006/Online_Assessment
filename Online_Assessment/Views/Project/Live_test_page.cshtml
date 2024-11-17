@@ -4,56 +4,59 @@
     <title>Live Test</title>
     <link href="~/App_Start/Content/bootstrap.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+    <script src="~/Scripts/handlebars.min.js"></script>
     <script src="~/Live_script.js"></script>
 </head>
 <body>
-    <div class="container mt-5">
+    <script id="test" type="text/x-handlebars-template">
+        <div class="container mt-5">
 
-        <div class="row">
-            <div class="col-10"></div>
-            <div class="col-2">
-                <input type="hidden" id="test_id" name="test_id" value="@ViewData["Test_Id"]" />
-                <input type="hidden" id="user_id" name="user_id" value="@ViewData["user_id"]" />
-                <label><b>Time Left:</b></label>
-                <label id="Timer" class="btn btn-primary"></label>
+            <div class="row">
+                <div class="col-10"></div>
+                <div class="col-2">
+                    <input type="hidden" id="test_id" name="test_id" value="@ViewData["Test_Id"]" />
+                    <input type="hidden" id="user_id" name="user_id" value="@ViewData["user_id"]" />
+                    <label><b>Time Left:</b></label>
+                    <label id="Timer" class="btn btn-primary"></label>
+                </div>
             </div>
+
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-10">
+                    <input type="hidden" id="Question_id" name="Question_id" value="{{Question_id}}" />
+                    <label id="Question">{{Question}}</label>
+                    <br />
+                    <br />
+                    <input type="radio" id="option1" name="options" value="{{option1_id}}" />
+                    <label id="answer1">{{option1}}</label>
+                    <br />
+                    <input type="radio" id="option2" name="options" value="{{option2_id}}" />
+                    <label id="answer2">{{option2}}</label>
+                    <br />
+                    <input type="radio" id="option3" name="options" value="{{option3_id}}" />
+                    <label id="answer3">{{option3}}</label>
+                    <br />
+                    <input type="radio" id="option4" name="options" value="{{option4_id}}" />
+                    <label id="answer4">{{option4}}</label>
+                    <br />
+                </div>
+                <div class="col-1"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-4">
+                    <button id="Previous_btn" type="button" onclick="Previous_question()" class="btn btn-secondary rounded w-25 h-100">Previous</button>
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-primary rounded w-25 h-100">Submit</button>
+                </div>
+                <div class="col-4">
+                    <button id="Next_btn" type="button" onclick="Next_question()" class="btn btn-success rounded w-25 h-100">Next</button>
+                </div>
+            </div>
+
         </div>
-
-        <div class="row">
-            <div class="col-1"></div>
-            <div class="col-10">
-                <input type="hidden" id="Question_id" name="Question_id" value="" />
-                <label id="Question"></label>
-                <br />
-                <br />
-                <input type="radio" id="option1" name="options" value="" />
-                <label id="answer1"></label>
-                <br />
-                <input type="radio" id="option2" name="options" value="" />
-                <label id="answer2"></label>
-                <br />
-                <input type="radio" id="option3" name="options" value="" />
-                <label id="answer3"></label>
-                <br />
-                <input type="radio" id="option4" name="options" value="" />
-                <label id="answer4"></label>
-                <br />
-            </div>
-            <div class="col-1"></div>
-        </div>
-
-        <div class="row">
-            <div class="col-4">
-                <button id="Previous_btn" type="button" onclick="Previous_question()" class="btn btn-secondary rounded w-25 h-100">Previous</button>
-            </div>
-            <div class="col-4">
-                <button class="btn btn-primary rounded w-25 h-100">Submit</button>
-            </div>
-            <div class="col-4">
-                <button id="Next_btn" type="button" onclick="Next_question()" class="btn btn-success rounded w-25 h-100">Next</button>
-            </div>
-        </div>
-
-    </div>
+    </script>
 </body>
 </html>

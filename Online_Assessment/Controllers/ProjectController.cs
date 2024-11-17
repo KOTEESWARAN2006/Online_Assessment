@@ -282,15 +282,78 @@ namespace Online_Assessment.Controllers
             return View();
         }
 
-        public JsonResult Get_invited_testlist()
+        public JsonResult Get_assigned_testlist()
         {
-            var user_id = Session["user_id"];
             var user_email = Session["user_email"];
 
             Online_AssessmentEntities context = new Online_AssessmentEntities();
+            List<Test_lists> Test_list = context.Database.SqlQuery<Test_lists>(
+                "exec Get_invited_testlist @email",
+                new SqlParameter("@email", user_email)).ToList();
+
+            return Json(Test_list, JsonRequestBehavior.AllowGet);
+        }
 
 
+        public ActionResult Test_start_page(int Id)
+        {
+            var user_id = Session["user_id"];
+            var Test_Id = Id;
+            ViewData["Test_Id"] = Test_Id;
+            ViewData["user_id"] = user_id;
+            return View();
+        }
+
+        public ActionResult Live_test_page(int Test_id, int User_id)
+        {
+            ViewData["Test_Id"] = Test_id;
+            ViewData["user_id"] = User_id;
+            return View();
+        }
+
+        public JsonResult Get_data_for_livetest(int Test_id)
+        {
+            Online_AssessmentEntities context = new Online_AssessmentEntities();
+
+            var Test_data = context.Test_table.Find(1);
+            var Test_duration = Test_data.Duration;
+            return Json(Test_duration, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Get_questions_for_test(int Test_id)
+        {
+            Online_AssessmentEntities context = new Online_AssessmentEntities();
+            List<Question_entity_for_test> Question_list = new List<Question_entity_for_test>();
+            Question_list = context.Database.SqlQuery<Question_entity_for_test>(
+                "exec Questions_for_livetest @test_id",
+                new SqlParameter("@test_id", Test_id)).ToList();
+
+            List<Option_table> option = new List<Option_table>();
+            Test_table test = new Test_table();
+            test = context.Test_table.Find(Test_id);
+            List<Question_table> question = new List<Question_table>();
+
+            return Json(Question_list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Get_options_for_question(int Question_id)
+        {
+            Online_AssessmentEntities context = new Online_AssessmentEntities();
+            List<Options_enitty_for_test> Option_list = new List<Options_enitty_for_test>();
+            Option_list = context.Database.SqlQuery<Options_enitty_for_test>(
+                "exec Options_for_livetest @question_id",
+                new SqlParameter("@question_id", Question_id)).ToList();
+            return Json(Option_list, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Collect_answers(int test_id, int user_id, string Question_answer)
+        {
+            Online_AssessmentEntities context = new Online_AssessmentEntities();
+            Answer_table collection_question_answer = new Answer_table();
+            context.Answer_table.Add(collection_question_answer);
             return Json(JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult 
     }
 }

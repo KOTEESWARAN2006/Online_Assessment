@@ -1,4 +1,17 @@
 ﻿$(document).ready(function () {
+    Handlebars.
+
+
+
+
+
+
+
+
+
+
+
+
     var Question_ids = [];
     var Test_id = $("#test_id").val();
     var User_id = $("#user_id").val();
@@ -9,12 +22,8 @@
         data: { Test_id: Test_id },
         dataType: 'json',
         success: function (Question_list) {
-            Question_list.forEach(function (question) {
-                alert(question.Questions);
-                Question_ids.push(question.Questions);
-            });
             $("#Question_id").val(Question_list[0].Question_Id);
-            $("#Question").text(Question_ids[0]);
+            $("#Question").text(Question_list[0].Questions);
 
             $.ajax({
                 url: "/Project/Get_options_for_question",
