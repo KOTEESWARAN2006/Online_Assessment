@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+
     var Question_ids = [];
     var currentquestion_index = 0;
 
@@ -11,38 +12,31 @@
             Result.forEach(function (question_id) {
                 Question_ids.push(question_id);
             });
-            function fetchQuestionAnswer() {
-                alert(Question_ids[0]);
-                $.ajax({
-                    url: "/Project/Get_question_answer",
-                    type: "POST",
-                    dataType: "json",
-                    data: { Question_id: Question_ids[currentquestion_index] },
-                    success: function (Question_answer) {
-                        var context = Question_answer;
-                        var template = Handlebars.compile($("#template").innerHTML);
-                        var html = template(context);
-                        $("#test_body").innerHTML = html;
-                    },
-                    error: function () {
-                        alert("Unable to fetch q and a");
-                    }
-                });
-            };
+
+            $.ajax({
+                url: "/Project/Get_question_answer",
+                type: "POST",
+                dataType: "json",
+                data: { Question_id: Question_ids[currentquestion_index] },
+                success: function (Question_answer) {
+                    var template = Handlebars.compile($("#template").html());
+                    var html = template(Question_answer);
+                    $("#test_body").html(html);
+                },
+                error: function () {
+                    alert("Unable to fetch q and a");
+                }
+            });
         },
         error: function () {
             alert("Questionid fetch fail");
         }
     });
 
-
-    
-
-
     $.ajax({
         url: "/Project/Get_data_for_livetest",
         type: "POST",
-        data: { Test_id: Test_id },
+        data: { Test_id: $("#test_id").val() },
         dataType: "json",
         success: function (result) {
             var timer = sqltimetojstime(result);
@@ -70,41 +64,35 @@
 
             update_timer();
 
-            var Countdowntimer;
-
-            if (!Countdowntimer) {
-
-                Countdowntimer = setInterval(function () {
-                    if (second > 0) {
-                        second--;
+            var Countdowntimer = setInterval(function () {
+                if (second > 0) {
+                    second--;
+                }
+                else {
+                    if (minute > 0) {
+                        second = 59;
+                        minute--;
                     }
                     else {
-                        if (minute > 0) {
+                        if (hour > 0) {
                             second = 59;
-                            minute--;
+                            minute = 59;
+                            hour--;
                         }
                         else {
-                            if (hour > 0) {
-                                second = 59;
-                                minute = 59;
-                                hour--;
-                            }
-                            else {
-                                clearInterval(Countdowntimer);
-                            }
+                            clearInterval(Countdowntimer);
                         }
-                    } update_timer();
-                }, 1000);
-            };
+                    }
+                }
+                update_timer();
+            }, 1000);
         },
         error: function () {
             alert("Unable to fetch timer");
         }
     });
-});
 
 function sqltimetojstime(sqltime) {
-
     if (!sqltime) {
         return "00:00:00";
     }
@@ -116,7 +104,15 @@ function sqltimetojstime(sqltime) {
     var formattedHour = String(hour).padStart(2, '0');
     var formattedMinute = String(minute).padStart(2, '0');
     var formattedSecond = String(second).padStart(2, '0');
-
+    s
     return formattedHour + ':' + formattedMinute + ':' + formattedSecond;
-};
+    };
+
+    function Next_question() {
+        alert(currentquestion_index);
+        alert('hi');
+        currentquestion_index = currentquestion_index + 1;
+    };
+
+});
 
