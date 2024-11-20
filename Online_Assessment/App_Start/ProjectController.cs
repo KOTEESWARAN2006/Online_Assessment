@@ -320,38 +320,33 @@ namespace Online_Assessment.Controllers
             return Json(Test_duration, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Get_questions_for_test(int Test_id)
+
+        public JsonResult Get_only_questionids(int test_id)
         {
             Online_AssessmentEntities context = new Online_AssessmentEntities();
-            List<Question_entity_for_test> Question_list = new List<Question_entity_for_test>();
-            Question_list = context.Database.SqlQuery<Question_entity_for_test>(
-                "exec Questions_for_livetest @test_id",
-                new SqlParameter("@test_id", Test_id)).ToList();
-
-            List<Option_table> option = new List<Option_table>();
-            Test_table test = new Test_table();
-            test = context.Test_table.Find(Test_id);
-            List<Question_table> question = new List<Question_table>();
-
-            return Json(Question_list, JsonRequestBehavior.AllowGet);
+            List<int> question_ids = new List<int>();
+            question_ids = context.Database.SqlQuery<int>(
+                "exec Get_only_questionids @Test_id",
+                new SqlParameter("@Test_id",test_id)).ToList();
+            return Json(question_ids, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Get_options_for_question(int Question_id)
+        public JsonResult Get_question_answer(int Question_id)
         {
             Online_AssessmentEntities context = new Online_AssessmentEntities();
-            List<Options_enitty_for_test> Option_list = new List<Options_enitty_for_test>();
-            Option_list = context.Database.SqlQuery<Options_enitty_for_test>(
+            List<Options_enitty_for_test> options = context.Database.SqlQuery<Options_enitty_for_test>(
                 "exec Options_for_livetest @question_id",
                 new SqlParameter("@question_id", Question_id)).ToList();
-            return Json(Option_list, JsonRequestBehavior.AllowGet);
-        }
+            Question_entity_for_test question = context.Database.SqlQuery<Question_entity_for_test>(
+                "exec Questions_for_livetest @question_id",
+                new SqlParameter("@question_id", Question_id)).SingleOrDefault();
 
-        public JsonResult Collect_answers(int test_id, int user_id, string Question_answer)
-        {
-            Online_AssessmentEntities context = new Online_AssessmentEntities();
-            Answer_table collection_question_answer = new Answer_table();
-            context.Answer_table.Add(collection_question_answer);
-            return Json(JsonRequestBehavior.AllowGet);
+            var Question_answer = new {
+                Question = question,
+                Options = options
+            };
+
+            return Json(Question_answer,JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,52 +1,42 @@
 ﻿$(document).ready(function () {
-    Handlebars.
-
-
-
-
-
-
-
-
-
-
-
-
     var Question_ids = [];
-    var Test_id = $("#test_id").val();
-    var User_id = $("#user_id").val();
+    var currentquestion_index = 0;
 
     $.ajax({
-        url: "/Project/Get_questions_for_test",
+        url: "/Project/Get_only_questionids",
         type: "POST",
-        data: { Test_id: Test_id },
-        dataType: 'json',
-        success: function (Question_list) {
-            $("#Question_id").val(Question_list[0].Question_Id);
-            $("#Question").text(Question_list[0].Questions);
-
-            $.ajax({
-                url: "/Project/Get_options_for_question",
-                type: "POST",
-                data: { Question_id: 1 },
-                dataType: "json",
-                success: function (Option_list) {
-                    $("#option1").val(Option_list[0].Option_Id);
-                    for (var i = 0; i < Option_list.length; i++) {
-                        $("#option" + (i + 1)).val(Option_list[i].Option_Id);
-                        $("#answer" + (i + 1)).text(Option_list[i].Options);
-                    }
-                },
-                error: function () {
-                    alert("Optionlist fail");
-                }
+        dataType: "json",
+        data: { test_id: $("#test_id").val() },
+        success: function (Result) {
+            Result.forEach(function (question_id) {
+                Question_ids.push(question_id);
             });
+            function fetchQuestionAnswer() {
+                alert(Question_ids[0]);
+                $.ajax({
+                    url: "/Project/Get_question_answer",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Question_id: Question_ids[currentquestion_index] },
+                    success: function (Question_answer) {
+                        var context = Question_answer;
+                        var template = Handlebars.compile($("#template").innerHTML);
+                        var html = template(context);
+                        $("#test_body").innerHTML = html;
+                    },
+                    error: function () {
+                        alert("Unable to fetch q and a");
+                    }
+                });
+            };
         },
         error: function () {
-            alert("Questionlist fail");
+            alert("Questionid fetch fail");
         }
     });
 
+
+    
 
 
     $.ajax({
@@ -129,3 +119,4 @@ function sqltimetojstime(sqltime) {
 
     return formattedHour + ':' + formattedMinute + ':' + formattedSecond;
 };
+

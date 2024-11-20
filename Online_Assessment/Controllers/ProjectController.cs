@@ -353,7 +353,5 @@ namespace Online_Assessment.Controllers
             context.Answer_table.Add(collection_question_answer);
             return Json(JsonRequestBehavior.AllowGet);
         }
-
-        public JsonResult 
     }
 }

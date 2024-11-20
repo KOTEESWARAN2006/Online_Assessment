@@ -62,7 +62,6 @@ User_email varchar(100) not null,
 Invited_date datetime not null
 )
 select*from Test_invitation_table
-select*from user_table
 
 create table Answer_table(
 Answer_Id int primary key identity(1,1),
@@ -130,8 +129,6 @@ where Test_Id=@Test_id
 end
 exec Get_invited_users_list @test_id=1
 
-alter table Test_invitation_table
-add Status bit
 
 select*from Test_table
 
@@ -171,7 +168,7 @@ end
 select*from test_table
 select*from test_invitation_table
 
-create procedure Get_invited_testlist
+alter procedure Get_invited_testlist
 @email varchar(100)
 as begin
 select t.Test_Id,Test_name,Start_date,End_date,Status,Duration
@@ -207,6 +204,7 @@ where Test_Id=@test_id)
 end
 exec Questions_for_livetest 1
 exec Options_for_livetest 1
+
 create procedure Options_for_livetest
 @question_id int
 as begin
@@ -220,8 +218,24 @@ exec Options_for_livetest 1
 select*from Question_table
 select*from Option_table
 select*from Test_invitation_table
-select*from Question_mapping_table
-where Test_Id=1
-select*from User_table
 
-exec Get_invited_testlist '123@k.com'
+
+exec Get_invited_testlist '123@k.com';
+
+create procedure Get_only_questionids
+@Test_id int
+as begin
+select Question_Id
+from question_mapping_table
+where test_id=@Test_id
+end
+exec Get_only_questionids 1
+
+alter procedure Questions_for_livetest
+@question_id int
+as begin
+select Question_Id,Questions
+from Question_table
+where question_id=@question_id
+end
+exec Questions_for_livetest 1
