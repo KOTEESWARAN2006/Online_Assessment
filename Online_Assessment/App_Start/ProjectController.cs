@@ -186,11 +186,7 @@ namespace Online_Assessment.Controllers
                 context.SaveChanges();
             }
 
-            //foreach (var user_email in Invited_emails)
-            //{
-            //    context.Test_invitation_table.Add(new Test_invitation_table { 
-            //User_email = user_email,Invited_date = DateTime.Now,Test_Id =Id });}
-            //context.SaveChanges();
+
             return Json(JsonRequestBehavior.AllowGet);
         }
 
@@ -300,7 +296,6 @@ namespace Online_Assessment.Controllers
             var user_id = Session["user_id"];
             var Test_Id = Id;
             ViewData["Test_Id"] = Test_Id;
-            ViewData["user_id"] = user_id;
             return View();
         }
 

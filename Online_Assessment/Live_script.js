@@ -1,37 +1,12 @@
-﻿$(document).ready(function () {
+﻿var Question_ids = [];
+var currentquestion_index = 0;
+function update_question_no() {
+    $("#Question_no").html((currentquestion_index + 1) + ".");
+};
 
-    var Question_ids = [];
-    var currentquestion_index = 0;
+$(document).ready(function () {
+    update_question_no();
 
-    $.ajax({
-        url: "/Project/Get_only_questionids",
-        type: "POST",
-        dataType: "json",
-        data: { test_id: $("#test_id").val() },
-        success: function (Result) {
-            Result.forEach(function (question_id) {
-                Question_ids.push(question_id);
-            });
-
-            $.ajax({
-                url: "/Project/Get_question_answer",
-                type: "POST",
-                dataType: "json",
-                data: { Question_id: Question_ids[currentquestion_index] },
-                success: function (Question_answer) {
-                    var template = Handlebars.compile($("#template").html());
-                    var html = template(Question_answer);
-                    $("#test_body").html(html);
-                },
-                error: function () {
-                    alert("Unable to fetch q and a");
-                }
-            });
-        },
-        error: function () {
-            alert("Questionid fetch fail");
-        }
-    });
 
     $.ajax({
         url: "/Project/Get_data_for_livetest",
@@ -60,7 +35,7 @@
                     displaysecond = "0" + second;
                 }
                 $("#Timer").text(displayhour + ":" + displayminute + ":" + displaysecond);
-            };
+            }
 
             update_timer();
 
@@ -86,33 +61,105 @@
                 }
                 update_timer();
             }, 1000);
+
+            fetchQuestionIds();
         },
         error: function () {
             alert("Unable to fetch timer");
         }
     });
 
-function sqltimetojstime(sqltime) {
-    if (!sqltime) {
-        return "00:00:00";
+
+
+
+
+
+
+    function fetchQuestionIds() {
+        $.ajax({
+            url: "/Project/Get_only_questionids",
+            type: "POST",
+            dataType: "json",
+            data: { test_id: $("#test_id").val() },
+            success: function (Result) {
+                Result.forEach(function (question_id) {
+                    Question_ids.push(question_id);
+                });
+                Get_question_answer();
+            },
+            error: function () {
+                alert("Question ID fetch failed");
+            }
+        });
     }
 
-    var hour = sqltime.Hours;
-    var minute = sqltime.Minutes;
-    var second = sqltime.Seconds;
+    Get_question_answer();
 
-    var formattedHour = String(hour).padStart(2, '0');
-    var formattedMinute = String(minute).padStart(2, '0');
-    var formattedSecond = String(second).padStart(2, '0');
-    s
-    return formattedHour + ':' + formattedMinute + ':' + formattedSecond;
-    };
 
-    function Next_question() {
-        alert(currentquestion_index);
-        alert('hi');
-        currentquestion_index = currentquestion_index + 1;
+
+
+
+
+    function sqltimetojstime(sqltime) {
+        if (!sqltime) {
+            return "00:00:00";
+        }
+
+        var hour = sqltime.Hours;
+        var minute = sqltime.Minutes;
+        var second = sqltime.Seconds;
+
+        var formattedHour = String(hour).padStart(2, '0');
+        var formattedMinute = String(minute).padStart(2, '0');
+        var formattedSecond = String(second).padStart(2, '0');
+
+        return formattedHour + ':' + formattedMinute + ':' + formattedSecond;
     };
 
 });
 
+function prevclick() {
+
+
+    if (currentquestion_index != 0) {
+        currentquestion_index--;
+        Get_question_answer();
+        update_question_no();
+    }
+    else {
+        alert("This is first question");
+    }
+};
+
+
+function nextclick() {
+    if (currentquestion_index < Question_ids.length - 1) {
+        currentquestion_index++;
+        update_question_no();
+        Get_question_answer();
+    } else {
+        alert('No more questions.');
+    }
+};
+
+function Get_question_answer() {
+
+    if (Question_ids.length > 0 && currentquestion_index < Question_ids.length) {
+        $.ajax({
+            url: "/Project/Get_question_answer",
+            type: "POST",
+            dataType: "json",
+            data: { Question_id: Question_ids[currentquestion_index] },
+            success: function (Question_answer) {
+                var source = $("#template").html();
+                var template = Handlebars.compile(source);
+                var html = template(Question_answer);
+                $("#test_body").html(html);
+                update_question_no()
+            },
+            error: function () {
+                alert("Unable to fetch question and answer");
+            }
+        });
+    }
+};

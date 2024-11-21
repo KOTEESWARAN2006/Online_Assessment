@@ -17,7 +17,7 @@
                 </div>
                 <br />
                 <input type="hidden" id="test_id" name="test_id" value="@ViewData["Test_Id"]" />
-                <input type="hidden" id="user_id" name="user_id" value="@ViewData["user_id"]" />
+                <input type="hidden" id="user_id" name="user_id" value="@Session["user_id"]" />
                 <p>1.<b>Answer all questions</b> If you are unsure about an answer, make your best guess and move on.</p>
                 <p>2.<b>Mark only one answer</b> per question, unless instructed otherwise. If you choose more than one answer, it will be considered incorrect.</p>
                 <div class="row">
