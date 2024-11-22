@@ -182,6 +182,7 @@ namespace Online_Assessment.Controllers
                 Invitation.Test_Id = Id;
                 Invitation.User_email = row;
                 Invitation.Invited_date = DateTime.Now;
+                Invitation.Result = 0;
                 context.Test_invitation_table.Add(Invitation);
                 context.SaveChanges();
             }
@@ -310,7 +311,7 @@ namespace Online_Assessment.Controllers
         {
             Online_AssessmentEntities context = new Online_AssessmentEntities();
 
-            var Test_data = context.Test_table.Find(1);
+            var Test_data = context.Test_table.Find(Test_id);
             var Test_duration = Test_data.Duration;
             return Json(Test_duration, JsonRequestBehavior.AllowGet);
         }
@@ -322,7 +323,7 @@ namespace Online_Assessment.Controllers
             List<int> question_ids = new List<int>();
             question_ids = context.Database.SqlQuery<int>(
                 "exec Get_only_questionids @Test_id",
-                new SqlParameter("@Test_id",test_id)).ToList();
+                new SqlParameter("@Test_id", test_id)).ToList();
             return Json(question_ids, JsonRequestBehavior.AllowGet);
         }
 
@@ -336,12 +337,87 @@ namespace Online_Assessment.Controllers
                 "exec Questions_for_livetest @question_id",
                 new SqlParameter("@question_id", Question_id)).SingleOrDefault();
 
-            var Question_answer = new {
+            var Question_answer = new
+            {
                 Question = question,
                 Options = options
             };
 
-            return Json(Question_answer,JsonRequestBehavior.AllowGet);
+            return Json(Question_answer, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Attended_question_answer_ids(int Question_id, int Option_id)
+        {
+
+
+            if (Session["Question_answer_dictionary"] == null)
+            {
+                Dictionary<int, int> Question_answer_dictionary = new Dictionary<int, int>();
+                Question_answer_dictionary.Add(Question_id, Option_id);
+                Session["Question_answer_dictionary"] = Question_answer_dictionary;
+
+            }
+            else
+            {
+                Dictionary<int, int> Stored_question_answer_dictionary = Session["Question_answer_dictionary"] as Dictionary<int, int>;
+
+                if (Stored_question_answer_dictionary.ContainsKey(Question_id))
+                {
+                    Stored_question_answer_dictionary[Question_id] = Option_id;
+                }
+                else
+                {
+                    Stored_question_answer_dictionary.Add(Question_id, Option_id);
+                }
+                Session["Question_answer_dictionary"] = Stored_question_answer_dictionary;
+            }
+
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Get_select_optionid(int Question_id)
+        {
+            var marked_option = new { Question_Id = 0, Option_Id = 0 };
+
+            if (Session["Question_answer_dictionary"] != null)
+            {
+                Dictionary<int, int> selected_option = Session["Question_answer_dictionary"] as Dictionary<int, int>;
+
+
+
+                if (selected_option.ContainsKey(Question_id))
+                {
+                    marked_option = new
+                    {
+                        Question_Id = Question_id,
+                        Option_Id = selected_option[Question_id]
+                    };
+                }
+            }
+            return Json(marked_option, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Save_user_answers()
+        {
+            Online_AssessmentEntities context = new Online_AssessmentEntities();
+
+            Answer_table answers = new Answer_table();
+
+            Dictionary<int, int> answer_dictionary = Session["Question_answer_dictionary"] as Dictionary<int, int>;
+            int result = 0;
+            foreach (var answer in answer_dictionary)
+            {
+                answers.Test_Id = 1;
+                answers.User_Id = Convert.ToInt16(Session["user_id"]);
+                answers.Question_Id = answer.Value;
+                answers.Option_Id = answer.Key;
+                answers.Submit_date = DateTime.Now;
+                context.Answer_table.Add(answers);
+                result = result + context.SaveChanges();
+            }
+            
+
+            return Json(result,JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -21,7 +21,6 @@ namespace Online_Assessment
         public Online_AssessmentEntities()
             : base("name=Online_AssessmentEntities")
         {
-            this.Configuration.ProxyCreationEnabled = true;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -116,13 +115,22 @@ namespace Online_Assessment
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Options_for_livetest_Result>("Options_for_livetest", question_idParameter);
         }
     
-        public virtual ObjectResult<Questions_for_livetest_Result> Questions_for_livetest(Nullable<int> test_id)
+        public virtual ObjectResult<Questions_for_livetest_Result> Questions_for_livetest(Nullable<int> question_id)
+        {
+            var question_idParameter = question_id.HasValue ?
+                new ObjectParameter("question_id", question_id) :
+                new ObjectParameter("question_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Questions_for_livetest_Result>("Questions_for_livetest", question_idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Get_only_questionids(Nullable<int> test_id)
         {
             var test_idParameter = test_id.HasValue ?
-                new ObjectParameter("test_id", test_id) :
-                new ObjectParameter("test_id", typeof(int));
+                new ObjectParameter("Test_id", test_id) :
+                new ObjectParameter("Test_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Questions_for_livetest_Result>("Questions_for_livetest", test_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Get_only_questionids", test_idParameter);
         }
     }
 }

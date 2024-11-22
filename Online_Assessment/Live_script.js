@@ -1,13 +1,78 @@
 ﻿var Question_ids = [];
 var currentquestion_index = 0;
+
+$(document).ready(function () {
+
+    fetchQuestionIds();
+    Get_question_answer();
+    update_question_no();
+    get_timer();
+});
+
+function fetchQuestionIds() {
+    $.ajax({
+        url: "/Project/Get_only_questionids",
+        type: "POST",
+        dataType: "json",
+        data: { test_id: $("#test_id").val() },
+        success: function (Result) {
+            Result.forEach(function (question_id) {
+                Question_ids.push(question_id);
+            });
+            Get_question_answer();
+        },
+        error: function () {
+            alert("Question ID fetch failed");
+        }
+    });
+};
+
+function Get_question_answer() {
+
+    if (Question_ids.length > 0 && currentquestion_index < Question_ids.length) {
+        $.ajax({
+            url: "/Project/Get_question_answer",
+            type: "POST",
+            dataType: "json",
+            data: { Question_id: Question_ids[currentquestion_index] },
+            success: function (Question_answer) {
+                var source = $("#template").html();
+                var template = Handlebars.compile(source);
+                var html = template(Question_answer);
+                $("#test_body").html(html);
+                update_question_no()
+                mark_selected_option(Question_ids[currentquestion_index]);
+
+            },
+            error: function () {
+                alert("Unable to fetch question and answer");
+            }
+        });
+    }
+};
+
+
 function update_question_no() {
     $("#Question_no").html((currentquestion_index + 1) + ".");
 };
 
-$(document).ready(function () {
-    update_question_no();
+function mark_selected_option(Question_id) {
+    $.ajax({
+        url: "Get_select_optionid",
+        type: "POST",
+        data: { Question_id: Question_id },
+        success: function (Question) {
+            if (Question.Question_Id == Question_ids[currentquestion_index]) {
+                $("input[name='options'][value='" + Question.Option_Id + "']").prop('checked', true);
+            }
+        },
+        error: function () {
+            alert("fail to mark selected option");
+        }
+    });
+};
 
-
+function get_timer() {
     $.ajax({
         url: "/Project/Get_data_for_livetest",
         type: "POST",
@@ -35,7 +100,7 @@ $(document).ready(function () {
                     displaysecond = "0" + second;
                 }
                 $("#Timer").text(displayhour + ":" + displayminute + ":" + displaysecond);
-            }
+            };
 
             update_timer();
 
@@ -56,75 +121,60 @@ $(document).ready(function () {
                         }
                         else {
                             clearInterval(Countdowntimer);
+                            save_answers();
                         }
                     }
                 }
                 update_timer();
             }, 1000);
 
-            fetchQuestionIds();
         },
         error: function () {
             alert("Unable to fetch timer");
         }
     });
 
+};
 
 
+function sqltimetojstime(sqltime) {
+    if (!sqltime) {
+        return "00:00:00";
+    }
+
+    var hour = sqltime.Hours;
+    var minute = sqltime.Minutes;
+    var second = sqltime.Seconds;
+
+    var formattedHour = String(hour).padStart(2, '0');
+    var formattedMinute = String(minute).padStart(2, '0');
+    var formattedSecond = String(second).padStart(2, '0');
+
+    return formattedHour + ':' + formattedMinute + ':' + formattedSecond;
+};
 
 
+function prevclick() {
+    var attended_question_id = $("#test_body input[name='Question_id']").val();
+    var attended_option_id = $("#test_body input[name='options']:checked").val();
 
 
-    function fetchQuestionIds() {
+    if (attended_option_id != 0) {
         $.ajax({
-            url: "/Project/Get_only_questionids",
+            url: "/Project/Attended_question_answer_ids",
             type: "POST",
-            dataType: "json",
-            data: { test_id: $("#test_id").val() },
-            success: function (Result) {
-                Result.forEach(function (question_id) {
-                    Question_ids.push(question_id);
-                });
+            data: { Question_id: attended_question_id, Option_id: attended_option_id },
+            success: function () {
                 Get_question_answer();
             },
             error: function () {
-                alert("Question ID fetch failed");
+                Get_question_answer();
             }
         });
-    }
-
-    Get_question_answer();
-
-
-
-
-
-
-    function sqltimetojstime(sqltime) {
-        if (!sqltime) {
-            return "00:00:00";
-        }
-
-        var hour = sqltime.Hours;
-        var minute = sqltime.Minutes;
-        var second = sqltime.Seconds;
-
-        var formattedHour = String(hour).padStart(2, '0');
-        var formattedMinute = String(minute).padStart(2, '0');
-        var formattedSecond = String(second).padStart(2, '0');
-
-        return formattedHour + ':' + formattedMinute + ':' + formattedSecond;
     };
-
-});
-
-function prevclick() {
-
 
     if (currentquestion_index != 0) {
         currentquestion_index--;
-        Get_question_answer();
-        update_question_no();
     }
     else {
         alert("This is first question");
@@ -133,33 +183,50 @@ function prevclick() {
 
 
 function nextclick() {
+    var attended_question_id = $("#test_body input[name='Question_id']").val();
+    var attended_option_id = $("#test_body input[name='options']:checked").val();
+
+
+    if (attended_option_id != 0) {
+        $.ajax({
+            url: "/Project/Attended_question_answer_ids",
+            type: "POST",
+            data: { Question_id: attended_question_id, Option_id: attended_option_id },
+            success: function () {
+                Get_question_answer();
+            },
+            error: function () {
+                Get_question_answer();
+            }
+        });
+    };
+
+
     if (currentquestion_index < Question_ids.length - 1) {
         currentquestion_index++;
-        update_question_no();
-        Get_question_answer();
     } else {
         alert('No more questions.');
     }
 };
 
-function Get_question_answer() {
-
-    if (Question_ids.length > 0 && currentquestion_index < Question_ids.length) {
-        $.ajax({
-            url: "/Project/Get_question_answer",
-            type: "POST",
-            dataType: "json",
-            data: { Question_id: Question_ids[currentquestion_index] },
-            success: function (Question_answer) {
-                var source = $("#template").html();
-                var template = Handlebars.compile(source);
-                var html = template(Question_answer);
-                $("#test_body").html(html);
-                update_question_no()
-            },
-            error: function () {
-                alert("Unable to fetch question and answer");
+function save_answers() {
+    $.ajax({
+        url: "/Project/Save_user_answers",
+        type: "GET",
+        success: function (result) {
+            if (result != 0) {
+                $("#test_body").hide();
+                $(".timer").hide();
+                $("#result_body").show();
             }
-        });
-    }
+            else {
+                alert("Unable to submit test");
+            }
+        },
+        error: function () {
+        }
+    });
 };
+
+
+

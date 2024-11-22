@@ -177,6 +177,8 @@ inner join Test_invitation_table ti
 on t.Test_Id=ti.Test_Id
 where ti.User_email = @email
 end
+select*from test_table
+select*from test_invitation_table
 exec Get_invited_testlist '123@k.com'
 
 select*from Test_table
@@ -239,3 +241,22 @@ from Question_table
 where question_id=@question_id
 end
 exec Questions_for_livetest 1
+
+select*from answer_table
+delete answer_table
+where test_id=1
+
+alter table Test_invitation_table
+add Result int
+
+select question_id
+from question_mapping_table
+where test_id =1
+
+select option_id 
+from option_table
+where answer=1
+
+select*from answer_table
+where USER_ID = 1
+

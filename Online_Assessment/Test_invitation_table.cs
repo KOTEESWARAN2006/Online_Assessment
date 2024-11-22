@@ -19,6 +19,7 @@ namespace Online_Assessment
         public string User_email { get; set; }
         public System.DateTime Invited_date { get; set; }
         public Nullable<bool> Status { get; set; }
+        public Nullable<int> Result { get; set; }
     
         public virtual Test_table Test_table { get; set; }
     }
