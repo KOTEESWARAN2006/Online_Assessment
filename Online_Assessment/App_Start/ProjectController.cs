@@ -400,24 +400,29 @@ namespace Online_Assessment.Controllers
         public JsonResult Save_user_answers()
         {
             Online_AssessmentEntities context = new Online_AssessmentEntities();
-
-            Answer_table answers = new Answer_table();
-
-            Dictionary<int, int> answer_dictionary = Session["Question_answer_dictionary"] as Dictionary<int, int>;
             int result = 0;
-            foreach (var answer in answer_dictionary)
+            if (Session["Question_answer_dictionary"] != null)
             {
-                answers.Test_Id = 1;
-                answers.User_Id = Convert.ToInt16(Session["user_id"]);
-                answers.Question_Id = answer.Value;
-                answers.Option_Id = answer.Key;
-                answers.Submit_date = DateTime.Now;
-                context.Answer_table.Add(answers);
-                result = result + context.SaveChanges();
-            }
-            
 
-            return Json(result,JsonRequestBehavior.AllowGet);
-        }
+                Dictionary<int, int> answer_dictionary = Session["Question_answer_dictionary"] as Dictionary<int, int>;
+                
+
+
+                foreach (var answer in answer_dictionary)
+                {
+                    Answer_table answers = new Answer_table();
+                    answers.Test_Id = 1;
+                    answers.User_Id = Convert.ToInt16(Session["user_id"]);
+                    answers.Question_Id = answer.Key;
+                    answers.Option_Id = answer.Value;
+                    answers.Submit_date = DateTime.Now;
+                    context.Answer_table.Add(answers);
+                    result += context.SaveChanges();
+                }
+                
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }       
     }
 }
+
