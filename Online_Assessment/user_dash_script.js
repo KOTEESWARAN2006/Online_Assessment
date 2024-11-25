@@ -3,49 +3,37 @@
         url: '/Project/Get_assigned_testlist',
         type: 'get',
         dataType: 'json',
-        success: function (result) {
-            $("#test_table").DataTable().clear().destroy();
-            $("#test_table").DataTable({
-                data: result,
-                columns: [
-                    { data: "Test_name" },
-                    {
-                        data: '',
-                        render: function (data, type, row) {
-                            return sqldatetojsdate(row.Start_date);
-                        }
-                    },
-                    {
-                        data: '',
-                        render: function (data, type, row) {
-                            return sqldatetojsdate(row.End_date);
-                        }
-                    },
-                    {
+        success: function (assigned_tests) {
+            var assigned_tests_length = assigned_tests.length;
+            var mapped_test_length = 0;
 
-                        data: '',
-                        render: function (data, type, row) {
-                            return sqltimetojstime(row.Duration);
+            assigned_tests.forEach(function (test) {
+                $.ajax({
+                    url: "/Project/Get_result_for_user",
+                    type: "POST",
+                    data: { test_id: test.Test_Id },
+                    success: function (result) {
+                        if (result > 0) {
+                            test.Result = result + "%";
+                        }
+                        else {
+                            test.Result = "0.0%";
+                        }
+                        mapped_test_length++;
+
+                        if (assigned_tests_length === mapped_test_length) {
+                            Initialize_datatable(assigned_tests);
                         }
                     },
-                    {
-                        data: "",
-                        render: function (data, type, row) {
-                            if (row.Status == 1) {
-                                return "Taken";
-                            }
-                            else {
-                                return "Not taken";
-                            }
-                        }
-                    },
-                    {
-                        data: '',
-                        render: function (data,type,row) {
-                            return '<button onclick="Go_test_start_page(' + row.Test_Id + ')" class="btn btn-success">Take Test</button>';
+                    error: function () {
+                        test.result = "0.0%";
+                        mapped_test_length++;
+
+                        if (assigned_tests_length === mapped_test_length) {
+                            Initialize_datatable(assigned_tests);
                         }
                     }
-                    ]
+                });
             });
         },
         error: function () {
@@ -53,6 +41,53 @@
         }
     });
 });
+
+function Initialize_datatable(assigned_tests) {
+    $("#test_table").DataTable().clear().destroy();
+    $("#test_table").DataTable({
+        data: assigned_tests,
+        columns: [
+            { data: "Test_name" },
+            {
+                data: '',
+                render: function (data, type, row) {
+                    return sqldatetojsdate(row.Start_date);
+                }
+            },
+            {
+                data: '',
+                render: function (data, type, row) {
+                    return sqldatetojsdate(row.End_date);
+                }
+            },
+            {
+
+                data: '',
+                render: function (data, type, row) {
+                    return sqltimetojstime(row.Duration);
+                }
+            },
+            {
+                data: "",
+                render: function (data, type, row) {
+                    if (row.Status == 1) {
+                        return "Taken";
+                    }
+                    else {
+                        return "Not taken";
+                    }
+                }
+            },
+            {
+                data: '',
+                render: function (data, type, row) {
+                    return '<button onclick="Go_test_start_page(' + row.Test_Id + ')" class="btn btn-success">Take Test</button>';
+                }
+            },
+            { data: "Result" }
+        ]
+    });
+};
 
 function sqldatetojsdate(sqldate) {
 

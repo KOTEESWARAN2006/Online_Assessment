@@ -248,30 +248,15 @@ where test_id=1
 
 alter table Test_invitation_table
 add Result int
-select*from Question_table
 
-select option_id
-from Option_table
-where Answer=1 and Question_Id in(
 select question_id
 from question_mapping_table
-where test_id =1)
-from
-select option_id 
-from Answer_table
-where Test_Id=1 and User_Id=1
+where test_id =1
 
+select option_id 
+from option_table
+where answer=1
 
 select*from answer_table
-exec Get_invited_testlist '123@k.com'
 where USER_ID = 1
-
-select*from Test_invitation_table
-select*from 
-update  Test_invitation_table
-set status=0
-
-SELECT * FROM dbo.Question_table WHERE Question_Id = 21
-
-
 

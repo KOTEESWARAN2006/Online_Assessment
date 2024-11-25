@@ -422,7 +422,18 @@ namespace Online_Assessment.Controllers
                 
             }
             return Json(result, JsonRequestBehavior.AllowGet);
-        }       
+        }
+
+        public JsonResult Get_result_for_user(int test_id)
+        {
+            Online_AssessmentEntities context = new Online_AssessmentEntities();
+
+            decimal result = context.Database.SqlQuery<decimal>(
+                "exec get_result_for_user @test_id,@user_id",
+                new SqlParameter("@test_id", test_id),
+                new SqlParameter("@user_id", Session["user_id"])).FirstOrDefault();
+            return Json(result,JsonRequestBehavior.AllowGet);
+        }
     }
 }
 
