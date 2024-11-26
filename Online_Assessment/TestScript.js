@@ -1,56 +1,60 @@
 ﻿$(document).ready(function () {
-        $.ajax({
-            url: '/Project/Get_test_lists',
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                $("#test_table").DataTable().clear().destroy();
-                $("#test_table").DataTable({
-                    data: data,
-                    columns: [
-                        { data: "Test_Id" },
-                        { data: "Test_name" },
-                        {
-                            data: '',
-                            render: function (data, type, row) {
-                                return sqldatetojsdate(row.Created_date);
-                            }
-                        },
-                        {
-                            data: '',
-                            render: function (data, type, row) {
-                                return sqldatetojsdate(row.Start_date);
-                            }
-                        },
-                        {
-                            data: '',
-                            render: function (data, type, row) {
-                                return sqldatetojsdate(row.End_date);
-                            }
-                        },
-                        {
-
-                            data: '',
-                            render: function (data, type, row) {
-                                return sqltimetojstime(row.Duration);
-                            }
-                        },
-                        {
-                            data: '',
-                            render: function (data, type, row) {
-                                return '<button onclick="Invite_users(' + row.Test_Id + ')" class="btn btn-success">Invite Users</button>' +
-                                    '<button onclick="Add_edit_question(' + row.Test_Id + ')" class="btn btn-primary">Add/Edit Questions</button>';
-                            }
-                        }
-                    ]
-                });
-            },
-            error: function () {
-                alert("Get test list fail");
-            }
-        });
+    Get_test_lists();
 });
 
+function Get_test_lists() {
+    $.ajax({
+        url: '/Project/Get_test_lists',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $("#test_table").DataTable().clear().destroy();
+            $("#test_table").DataTable({
+                data: data,
+                columns: [
+                    { data: "Test_Id" },
+                    { data: "Test_name" },
+                    {
+                        data: '',
+                        render: function (data, type, row) {
+                            return sqldatetojsdate(row.Created_date);
+                        }
+                    },
+                    {
+                        data: '',
+                        render: function (data, type, row) {
+                            return sqldatetojsdate(row.Start_date);
+                        }
+                    },
+                    {
+                        data: '',
+                        render: function (data, type, row) {
+                            return sqldatetojsdate(row.End_date);
+                        }
+                    },
+                    {
+
+                        data: '',
+                        render: function (data, type, row) {
+                            return sqltimetojstime(row.Duration);
+                        }
+                    },
+                    {
+                        data: '',
+                        render: function (data, type, row) {
+                            return '<button onclick="Invite_users(' + row.Test_Id + ')" class="btn btn-success">Invite Users</button>' + ' ' +
+                                '<button onclick="Add_edit_question(' + row.Test_Id + ')" class="btn btn-primary">Add/Edit Questions</button>' + ' ' +
+                                '<button type="button" onclick="View_results(' + row.Test_Id + ')" class="btn btn-danger">View Results</button>';
+                        }
+                    }
+                ]
+            });
+        },
+        error: function () {
+            alert("Get test list fail");
+        }
+    });
+};
 function create_test() {
     var test_details = {
         Test_name: $("#test_name").val(),
@@ -121,3 +125,8 @@ function Add_edit_question(Test_Id) {
 function Invite_users(Test_Id) {
     window.location.href = "/Project/Invitation_page/" + Test_Id;
 };
+
+function View_results(Test_Id) {
+    window.location.href = "/Project/Result_admin/" + Test_Id;
+}
+

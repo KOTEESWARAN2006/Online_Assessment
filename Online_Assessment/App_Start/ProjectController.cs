@@ -434,6 +434,18 @@ namespace Online_Assessment.Controllers
                 new SqlParameter("@user_id", Session["user_id"])).FirstOrDefault();
             return Json(result,JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Result_admin(int id)
+        {
+            Session["test_id"] =id;
+            return View();
+        }
+
+        public JsonResult Get_result_for_admin(int test_id)
+        {
+
+            return Json(JsonRequestBehavior.AllowGet);
+        }
     }
 }
 
