@@ -21,6 +21,7 @@ namespace Online_Assessment
         public Online_AssessmentEntities()
             : base("name=Online_AssessmentEntities")
         {
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

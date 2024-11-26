@@ -16,7 +16,7 @@ namespace Online_Assessment
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Project", action = "User_login_page", id = UrlParameter.Optional }
+                defaults: new { controller = "Project", action = "Test_page", id = UrlParameter.Optional }
             );
         }
     }

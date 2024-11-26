@@ -185,6 +185,8 @@ select*from Test_table
 select*from test_invitation_table
 select*from answer_table
 
+select * from Option_table
+
 select t.test_id,Test_name,Start_date,End_date,Duration
 from Test_table t
 inner join Test_invitation_table ti
@@ -260,3 +262,43 @@ where answer=1
 select*from answer_table
 where USER_ID = 1
 
+alter procedure get_result_for_user
+@test_id int,@user_id int
+as begin
+select cast((COUNT(case
+when ot.option_id=at.option_id then 1
+else null
+end)*100.0) / count(distinct ot.question_id)as decimal(5,2)
+) as Result_percentage
+from option_table ot
+left join answer_table at
+on at.question_id=ot.question_id and test_id=@test_id and user_id=@user_id
+where ot.answer=1 and ot.question_id in (
+select question_id
+from question_mapping_table
+where test_id =@test_id)
+end
+
+create procedure get_result_for_admin
+@test_id
+
+alter procedure get_result_for_user  
+@test_id int,@user_id int  
+as begin  
+
+select cast((COUNT(case when ot.option_id=at.option_id then 1 else null end)*100.0) / count(distinct ot.question_id)as decimal(5,2) ) as Result_percentage
+from option_table ot left join answer_table at on at.question_id=ot.question_id and test_id=@test_id and user_id=@user_id
+ where ot.answer=1 and ot.question_id in ( select question_id from question_mapping_table where test_id =@test_id)  
+
+
+end
+
+select*from User_table
+
+select First_name,Last_name,Email
+from User_table ut
+left join Test_invitation_table it
+on ut.Email = it.User_email
+left join Answer_table at
+on ut.User_Id = at.User_Id
+where at.Test_Id=1
