@@ -13,10 +13,10 @@ function Get_test_lists() {
                 data: data,
                 columns: [
                     {
-                        data: '',
-                        render: function (data, type, row) {
-                            return row.Test_Id + "<select id='result_dropdown' onclick='results_for_admin(" + row.Test_Id + ")'><option>See Results</option></select>";
-                        }
+                        data: 'Test_Id',
+                        //render: function (data, type, row) {
+                        //    return row.Test_Id + "<select id='result_dropdown' onclick='results_for_admin(" + row.Test_Id + ")'><option>See Results</option></select>";
+                        //}
                     },
                     { data: "Test_name" },
                     {
@@ -51,7 +51,10 @@ function Get_test_lists() {
                                 '<button onclick="Add_edit_question(' + row.Test_Id + ')" class="btn btn-primary">Add/Edit Questions</button>';
                         }
                     }
-                ]
+                ],
+                order: [[0, 'asc']],
+                processing: true,
+                serverSide: false
             });
         },
         error: function () {

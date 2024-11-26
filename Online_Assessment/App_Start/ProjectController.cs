@@ -77,7 +77,7 @@ namespace Online_Assessment.Controllers
             Online_AssessmentEntities context = new Online_AssessmentEntities();
 
             List<Test_table> Test_list = new List<Test_table>();
-            Test_list = context.Test_table.ToList();
+            Test_list = context.Test_table.OrderBy(test => test.Test_Id).ToList();
             return Json(Test_list, JsonRequestBehavior.AllowGet);
         }
 

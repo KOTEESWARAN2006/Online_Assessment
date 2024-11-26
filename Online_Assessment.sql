@@ -295,10 +295,37 @@ end
 
 select*from User_table
 
-select First_name,Last_name,Email
+select ut.First_name,ut.Last_name as name,count(at.Option_Id)
 from User_table ut
-left join Test_invitation_table it
-on ut.Email = it.User_email
+right join Answer_table at
+on at.User_Id=ut.User_Id
+group by at.User_Id
+
+select count(CASE
+when at.option_id=ot.option_id then 1 else null end)*100.0
+from Answer_table at
+left join Option_table ot
+on at.Test_Id=ot.Option_Id
+
+select*from User_table
+select*from Question_mapping_table
+select*from Option_table
+select*from Answer_table
+select*from Test_invitation_table
+
+select Option_Id
+from Option_table
+where Question_Id in (
+select Question_Id
+from Question_mapping_table
+where Test_Id=1 and Answer=1
+)
+group by Answer_table.User_Id
+
+select ut.first_name,count(at.Option_Id)
+from User_table ut
 left join Answer_table at
-on ut.User_Id = at.User_Id
-where at.Test_Id=1
+on at.User_Id=ut.User_Id
+group by at.Test_Id
+left join Option_table ot
+on ot.Option_Id=at.Option_Id and ot.Answer=1
