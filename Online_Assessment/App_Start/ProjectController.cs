@@ -405,7 +405,7 @@ namespace Online_Assessment.Controllers
             {
 
                 Dictionary<int, int> answer_dictionary = Session["Question_answer_dictionary"] as Dictionary<int, int>;
-                
+
 
 
                 foreach (var answer in answer_dictionary)
@@ -419,7 +419,7 @@ namespace Online_Assessment.Controllers
                     context.Answer_table.Add(answers);
                     result += context.SaveChanges();
                 }
-                
+
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -432,14 +432,19 @@ namespace Online_Assessment.Controllers
                 "exec get_result_for_user @test_id,@user_id",
                 new SqlParameter("@test_id", test_id),
                 new SqlParameter("@user_id", Session["user_id"])).FirstOrDefault();
-            return Json(result,JsonRequestBehavior.AllowGet);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
 
         public JsonResult Get_result_for_admin(int test_id)
         {
+            Online_AssessmentEntities context = new Online_AssessmentEntities();
 
-            return Json(JsonRequestBehavior.AllowGet);
+            List<Admin_results> Result_list = context.Database.SqlQuery<Admin_results>(
+                "exec Get_result_for_admin @test_id",
+                new SqlParameter("@test_id", test_id)).ToList();
+
+            return Json(Result_list,JsonRequestBehavior.AllowGet);
         }
     }
 }

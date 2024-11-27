@@ -120,6 +120,7 @@
     <Property Name="User_email" Type="varchar" Nullable="false" MaxLength="100" />
     <Property Name="Invited_date" Type="datetime" Nullable="false" />
     <Property Name="Status" Type="bit" />
+    <Property Name="Result" Type="int" />
   </EntityType>
   <EntityType Name="Test_table">
     <Key>
@@ -280,14 +281,24 @@
   <Function Name="Get_mapped_questionIds" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="test_id" Type="int" Mode="In" />
   </Function>
+  <Function Name="Get_only_questionids" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Test_id" Type="int" Mode="In" />
+  </Function>
   <Function Name="Get_questions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="Subject_id" Type="int" Mode="In" />
     <Parameter Name="Difficulty_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Get_result_for_admin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="test_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="get_result_for_user" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="test_id" Type="int" Mode="In" />
+    <Parameter Name="user_id" Type="int" Mode="In" />
   </Function>
   <Function Name="Options_for_livetest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="question_id" Type="int" Mode="In" />
   </Function>
   <Function Name="Questions_for_livetest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="test_id" Type="int" Mode="In" />
+    <Parameter Name="question_id" Type="int" Mode="In" />
   </Function>
 </Schema>

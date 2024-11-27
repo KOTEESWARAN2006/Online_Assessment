@@ -70,6 +70,7 @@
     <EntitySetMapping Name="Test_invitation_table">
       <EntityTypeMapping TypeName="Online_AssessmentModel.Test_invitation_table">
         <MappingFragment StoreEntitySet="Test_invitation_table">
+          <ScalarProperty Name="Result" ColumnName="Result" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Invitation_Id" ColumnName="Invitation_Id" />
           <ScalarProperty Name="Test_Id" ColumnName="Test_Id" />
@@ -153,5 +154,17 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Get_only_questionids" FunctionName="Online_AssessmentModel.Store.Get_only_questionids" />
+    <FunctionImportMapping FunctionImportName="Get_result_for_admin" FunctionName="Online_AssessmentModel.Store.Get_result_for_admin">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Online_AssessmentModel.Get_result_for_admin_Result">
+          <ScalarProperty Name="User_id" ColumnName="User_id" />
+          <ScalarProperty Name="User_name" ColumnName="User_name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Result" ColumnName="Result" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="get_result_for_user" FunctionName="Online_AssessmentModel.Store.get_result_for_user" />
   </EntityContainerMapping>
 </Mapping>

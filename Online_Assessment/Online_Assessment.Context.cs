@@ -133,5 +133,27 @@ namespace Online_Assessment
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Get_only_questionids", test_idParameter);
         }
+    
+        public virtual ObjectResult<Get_result_for_admin_Result> Get_result_for_admin(Nullable<int> test_id)
+        {
+            var test_idParameter = test_id.HasValue ?
+                new ObjectParameter("test_id", test_id) :
+                new ObjectParameter("test_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_result_for_admin_Result>("Get_result_for_admin", test_idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> get_result_for_user(Nullable<int> test_id, Nullable<int> user_id)
+        {
+            var test_idParameter = test_id.HasValue ?
+                new ObjectParameter("test_id", test_id) :
+                new ObjectParameter("test_id", typeof(int));
+    
+            var user_idParameter = user_id.HasValue ?
+                new ObjectParameter("user_id", user_id) :
+                new ObjectParameter("user_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("get_result_for_user", test_idParameter, user_idParameter);
+        }
     }
 }

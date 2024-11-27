@@ -13,11 +13,13 @@ function Get_test_lists() {
                 data: data,
                 columns: [
                     {
-                        data: 'Test_Id',
-                        //render: function (data, type, row) {
-                        //    return row.Test_Id + "<select id='result_dropdown' onclick='results_for_admin(" + row.Test_Id + ")'><option>See Results</option></select>";
-                        //}
+                        data: '',
+                        className: 'Dt-control',
+                        render: function (data, type, row) {
+                            return '<button type="button" class="arrow-btn" onclick="results_for_admin(' + row.Test_Id + ')"><i class="fa fa-arrow-right"></i></button>'
+                        }
                     },
+                    { data: "Test_Id" },
                     { data: "Test_name" },
                     {
                         data: '',
@@ -62,6 +64,8 @@ function Get_test_lists() {
         }
     });
 };
+
+
 function create_test() {
     var test_details = {
         Test_name: $("#test_name").val(),
@@ -69,18 +73,18 @@ function create_test() {
         End_date: decodeURIComponent($("#enddate").val()),
         Duration: decodeURIComponent($("#duration").val()) + ':00'
     };
-$.ajax({
-    url: '/Project/Create_test',
-    type: 'POST',
-    data: {test:JSON.stringify(test_details)},
-    dataType: 'json',
-    success: function () {
-        alert("Succes");
-    },
-    error: function () {
-        alert("fail");
-    }
-});
+    $.ajax({
+        url: '/Project/Create_test',
+        type: 'POST',
+        data: { test: JSON.stringify(test_details) },
+        dataType: 'json',
+        success: function () {
+            alert("Succes");
+        },
+        error: function () {
+            alert("fail");
+        }
+    });
 };
 
 
@@ -137,6 +141,7 @@ function View_results(Test_Id) {
     window.location.href = "/Project/Result_admin/" + Test_Id;
 }
 
-function results_for_admin() {
+function results_for_admin(Test_id) {
+    alert(Test_id);
 }
 

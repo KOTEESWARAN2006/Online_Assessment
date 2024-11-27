@@ -293,6 +293,13 @@
           <Parameter Name="Subject_id" Type="int" Mode="In" />
           <Parameter Name="Difficulty_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="Get_result_for_admin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="test_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_result_for_user" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="test_id" Type="int" Mode="In" />
+          <Parameter Name="user_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="Options_for_livetest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="question_id" Type="int" Mode="In" />
         </Function>
@@ -384,6 +391,13 @@
           </FunctionImport>
           <FunctionImport Name="Get_only_questionids" ReturnType="Collection(Int32)">
           <Parameter Name="Test_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Get_result_for_admin" ReturnType="Collection(Online_AssessmentModel.Get_result_for_admin_Result)">
+          <Parameter Name="test_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_result_for_user" ReturnType="Collection(Decimal)">
+            <Parameter Name="test_id" Mode="In" Type="Int32" />
+            <Parameter Name="user_id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Admin_table">
@@ -645,6 +659,12 @@
           <Property Type="Int32" Name="Question_Id" Nullable="false" />
           <Property Type="String" Name="questions" Nullable="false" MaxLength="255" />
         </ComplexType>
+        <ComplexType Name="Get_result_for_admin_Result">
+          <Property Type="Int32" Name="User_id" Nullable="false" />
+          <Property Type="String" Name="User_name" Nullable="false" MaxLength="201" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="100" />
+          <Property Type="Decimal" Name="Result" Nullable="true" Precision="26" Scale="12" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -805,6 +825,17 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Get_only_questionids" FunctionName="Online_AssessmentModel.Store.Get_only_questionids" />
+          <FunctionImportMapping FunctionImportName="Get_result_for_admin" FunctionName="Online_AssessmentModel.Store.Get_result_for_admin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Online_AssessmentModel.Get_result_for_admin_Result">
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
+                <ScalarProperty Name="User_name" ColumnName="User_name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_result_for_user" FunctionName="Online_AssessmentModel.Store.get_result_for_user" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

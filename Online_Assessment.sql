@@ -279,9 +279,6 @@ from question_mapping_table
 where test_id =@test_id)
 end
 
-create procedure get_result_for_admin
-@test_id
-
 alter procedure get_result_for_user  
 @test_id int,@user_id int  
 as begin  
@@ -289,43 +286,19 @@ as begin
 select cast((COUNT(case when ot.option_id=at.option_id then 1 else null end)*100.0) / count(distinct ot.question_id)as decimal(5,2) ) as Result_percentage
 from option_table ot left join answer_table at on at.question_id=ot.question_id and test_id=@test_id and user_id=@user_id
  where ot.answer=1 and ot.question_id in ( select question_id from question_mapping_table where test_id =@test_id)  
-
-
 end
 
-select*from User_table
+alter procedure Get_result_for_admin
+@test_id int
+as begin
+select at.User_id as [User Id],ut.First_name+' '+ut.Last_name as [User name],ut.Email,COUNT(case
+when ot.option_id=at.option_id then 1 else null end)*100.0 / (select  COUNT (question_id) from question_Mapping_table where test_id = @test_id) as Result
+from answer_table at
+inner join user_table ut on ut.user_id=at.user_id
+inner join question_mapping_table qt on qt.question_id=at.question_id and qt.test_id=@test_id
+inner join option_table ot on ot.option_id=at.option_id and ot.answer=1
+where at.test_id = @test_id group by at.user_id,ut.email,ut.First_name+' '+ut.Last_name
+order by Result desc
+end
+Get_result_for_admin 1
 
-select ut.First_name,ut.Last_name as name,count(at.Option_Id)
-from User_table ut
-right join Answer_table at
-on at.User_Id=ut.User_Id
-group by at.User_Id
-
-select count(CASE
-when at.option_id=ot.option_id then 1 else null end)*100.0
-from Answer_table at
-left join Option_table ot
-on at.Test_Id=ot.Option_Id
-
-select*from User_table
-select*from Question_mapping_table
-select*from Option_table
-select*from Answer_table
-select*from Test_invitation_table
-
-select Option_Id
-from Option_table
-where Question_Id in (
-select Question_Id
-from Question_mapping_table
-where Test_Id=1 and Answer=1
-)
-group by Answer_table.User_Id
-
-select ut.first_name,count(at.Option_Id)
-from User_table ut
-left join Answer_table at
-on at.User_Id=ut.User_Id
-group by at.Test_Id
-left join Option_table ot
-on ot.Option_Id=at.Option_Id and ot.Answer=1

@@ -77,7 +77,17 @@
       <Parameter Name="question_id" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="Questions_for_livetest" ReturnType="Collection(Online_AssessmentModel.Questions_for_livetest_Result)">
+      <Parameter Name="question_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Get_only_questionids" ReturnType="Collection(Int32)">
+      <Parameter Name="Test_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Get_result_for_admin" ReturnType="Collection(Online_AssessmentModel.Get_result_for_admin_Result)">
       <Parameter Name="test_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="get_result_for_user" ReturnType="Collection(Decimal)">
+      <Parameter Name="test_id" Mode="In" Type="Int32" />
+      <Parameter Name="user_id" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <EntityType Name="Admin_table">
@@ -164,6 +174,7 @@
     <Property Name="Invited_date" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Test_table" Relationship="Online_AssessmentModel.FK__Test_invi__Test___33D4B598" FromRole="Test_invitation_table" ToRole="Test_table" />
     <Property Type="Boolean" Name="Status" />
+    <Property Type="Int32" Name="Result" />
   </EntityType>
   <EntityType Name="Test_table">
     <Key>
@@ -337,5 +348,11 @@
   <ComplexType Name="Questions_for_livetest_Result">
     <Property Type="Int32" Name="Question_Id" Nullable="false" />
     <Property Type="String" Name="questions" Nullable="false" MaxLength="255" />
+  </ComplexType>
+  <ComplexType Name="Get_result_for_admin_Result">
+    <Property Type="Int32" Name="User_id" Nullable="false" />
+    <Property Type="String" Name="User_name" Nullable="false" MaxLength="201" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="100" />
+    <Property Type="Decimal" Name="Result" Nullable="true" Precision="26" Scale="12" />
   </ComplexType>
 </Schema>

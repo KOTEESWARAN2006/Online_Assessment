@@ -40,4 +40,12 @@ namespace Online_Assessment.Models
         public int Option_Id { get; set; }
         public string Options { get; set; }
     }
+
+    public class Admin_results
+    {
+        public int User_Id { get; set; }
+        public string User_name { get; set; }
+        public string Email { get; set; }
+        public decimal Result { get; set; }
+    }
 }
