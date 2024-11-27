@@ -291,7 +291,7 @@ end
 alter procedure Get_result_for_admin
 @test_id int
 as begin
-select at.User_id as [User Id],ut.First_name+' '+ut.Last_name as [User name],ut.Email,COUNT(case
+select at.User_Id,ut.First_name+' '+ut.Last_name as User_name,ut.Email,COUNT(case
 when ot.option_id=at.option_id then 1 else null end)*100.0 / (select  COUNT (question_id) from question_Mapping_table where test_id = @test_id) as Result
 from answer_table at
 inner join user_table ut on ut.user_id=at.user_id

@@ -142,6 +142,17 @@ function View_results(Test_Id) {
 }
 
 function results_for_admin(Test_id) {
-    alert(Test_id);
+
+    $.ajax({
+        url: "/Project/Get_result_for_admin",
+        type: "POST",
+        data: { test_id: Test_id },
+        success: function (Result) {
+            
+        },
+        error: function () {
+            alert("Unable to fetch results");
+        }
+    })
 }
 
