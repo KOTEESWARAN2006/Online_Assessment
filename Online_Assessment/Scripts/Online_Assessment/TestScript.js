@@ -137,22 +137,48 @@ function Invite_users(Test_Id) {
     window.location.href = "/Project/Invitation_page/" + Test_Id;
 };
 
-function View_results(Test_Id) {
-    window.location.href = "/Project/Result_admin/" + Test_Id;
-}
+//function View_results(Test_Id) {
+//    window.location.href = "/Project/Result_admin/" + Test_Id;
+//}
 
 function results_for_admin(Test_id) {
 
-    $.ajax({
-        url: "/Project/Get_result_for_admin",
-        type: "POST",
-        data: { test_id: Test_id },
-        success: function (Result) {
-            
-        },
-        error: function () {
-            alert("Unable to fetch results");
-        }
-    })
+    var child_table = $('<table id="child_table"><thead><tr><th>User Id</th><th>User name</th><th>Email</th><th>Result/Marks</th></tr></thead><tbody></tbody></table>');
+    var tr = $('button[onclick="results_for_admin(' + Test_id + ')"]').closest('tr');
+    var row = $("#test_table").DataTable().row(tr);
+
+    if (row.child.isShown()) {
+        row.child.hide();
+
+    }
+
+    else {
+        $.ajax({
+            url: "/Project/Get_result_for_admin",
+            type: "POST",
+            data: { test_id: Test_id },
+            success: function (Result) {
+
+                $('#child_table').DataTable().clear().destroy();
+                child_table.DataTable({
+
+                    data: Result,
+                    columns: [
+                        { data: "User_Id" },
+                        { data: "User_name" },
+                        { data: "Email" },
+                        { data: "Result" }
+                    ],
+                    autoWidth: false,
+                    order: [3, 'desc']
+                });
+                row.child(child_table).show();
+
+            },
+            error: function () {
+                alert("Unable to fetch results");
+            }
+        })
+    }
 }
 
