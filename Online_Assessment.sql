@@ -177,6 +177,8 @@ inner join Test_invitation_table ti
 on t.Test_Id=ti.Test_Id
 where ti.User_email = @email
 end
+
+
 select*from test_table
 select*from test_invitation_table
 exec Get_invited_testlist '123@k.com'
@@ -278,6 +280,8 @@ select question_id
 from question_mapping_table
 where test_id =@test_id)
 end
+
+get_result_for_user 1,1
 
 alter procedure get_result_for_user  
 @test_id int,@user_id int  
